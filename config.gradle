@@ -1,0 +1,49 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+            applicationId:'com.jogger.beautifulapp',
+            buildToolsVersion: "27.0.3",
+            minSdkVersion    : 16,
+            targetSdkVersion : 27,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    dependVersion = [
+            support: "27.1.1"
+    ]
+
+    dependencies = [
+            // ------------- Android -------------
+            constraintLayout       : "com.android.support.constraint:constraint-layout:1.1.1",
+            runner                 : "com.android.support.test:runner:1.0.2",
+            espressoCore           : "com.android.support.test.espresso:espresso-core:3.0.2",
+            supportV4              : "com.android.support:support-v4:${dependVersion.support}",
+            appcompatV7            : "com.android.support:appcompat-v7:${dependVersion.support}",
+            design                 : "com.android.support:design:${dependVersion.support}",
+            recyclerview           : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            junit                  : "junit:junit:4.12",
+            espresso               : "com.android.support.test.espresso:espresso-core:2.2.2",
+
+            glide                  : 'com.github.bumptech.glide:glide:3.7.0',
+            baseAdapter            : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30',
+            // ------------- 网络请求 -------------
+            retrofit2Rxjava2Adapter: 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0',
+            rxjava                 : 'io.reactivex.rxjava2:rxjava:2.1.8',
+            rxandroid              : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            converterGson          : 'com.squareup.retrofit2:converter-gson:2.1.0',
+            gson                   : 'com.google.code.gson:gson:2.8.0',
+            butterknife            : 'com.jakewharton:butterknife:8.4.0',
+            butterknifeCompiler    : 'com.jakewharton:butterknife-compiler:8.4.0',
+            multidex               : 'com.android.support:multidex:1.0.3',
+            freemarker             : 'org.freemarker:freemarker:2.3.23',
+            greendao               : 'org.greenrobot:greendao:3.0.1',
+            greendaoGenerator      : 'org.greenrobot:greendao-generator:3.0.0',
+            umeng                  : 'com.umeng.analytics:analytics:latest.integration',
+            permission             : 'com.yanzhenjie:permission:2.0.0-rc4',
+            photoview              : 'com.github.chrisbanes:PhotoView:1.2.6',
+            photopicker            : 'me.iwf.photopicker:PhotoPicker:0.1.8',
+            tinkerAndroidAnno      : 'com.tencent.tinker:tinker-android-anno:1.9.1',
+            tinker                 : 'com.tencent.tinker:tinker-android-lib:1.9.1'
+    ]
+}
