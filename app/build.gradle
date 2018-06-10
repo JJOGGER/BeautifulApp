@@ -27,6 +27,7 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies.runner
     androidTestImplementation rootProject.ext.dependencies.espressoCore
     implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.cardview
     implementation rootProject.ext.dependencies.butterknife
     annotationProcessor rootProject.ext.dependencies.butterknifeCompiler
     implementation rootProject.ext.dependencies.retrofit2Rxjava2Adapter
@@ -36,6 +37,8 @@ dependencies {
     implementation rootProject.ext.dependencies.multidex
     implementation rootProject.ext.dependencies.gson
     implementation rootProject.ext.dependencies.baseAdapter
+    implementation rootProject.ext.dependencies.glide
     implementation project(':slidemenulibrary')
+    implementation project(':refreshlayout')
 }
 

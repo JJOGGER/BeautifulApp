@@ -3,6 +3,7 @@ package com.jogger.beautifulapp.http;
 import android.annotation.SuppressLint;
 
 import com.google.gson.Gson;
+import com.jogger.beautifulapp.entity.AppData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
 
@@ -22,10 +23,10 @@ import retrofit2.Response;
  * Created by jogger on 2018/4/14.网络请求处理
  */
 @SuppressLint("CheckResult")
+@SuppressWarnings("unchecked")
 class HttpRequestImp implements IHttpRequest {
     private final RequestService mRequestService;
     private Gson mGson;
-    HttpRequestImp mHttpRequestImp;
 
     HttpRequestImp(RequestService requestService) {
         mRequestService = requestService;
@@ -35,6 +36,13 @@ class HttpRequestImp implements IHttpRequest {
     @Override
     public void test(String account,OnHttpRequestListener listener) {
         Observable<Response<ResponseBody>> test = mRequestService.test(account);
+    }
+
+    @Override
+    public void getDialyDatas(int page, int page_size, int platform, OnHttpRequestListener
+            listener) {
+        Observable<HttpResult<AppData>> getDialyDatas=mRequestService.getDialyDatas(page,page_size,platform);
+        enqueue(getDialyDatas,listener);
     }
 
     /**
@@ -52,7 +60,7 @@ class HttpRequestImp implements IHttpRequest {
                             L.e("---------enqueueVoid:" + result);
                             if (listener != null) {
                                 int code = getCode(result);
-                                if (code == 200) {
+                                if (code == 1) {
                                     listener.onSuccess(true);
                                 } else {
                                     listener.onFailure(code);
@@ -84,10 +92,10 @@ class HttpRequestImp implements IHttpRequest {
                     @Override
                     public void accept(HttpResult<T> tHttpResult) throws Exception {
                         if (listener != null) {
-                            if (tHttpResult.getCode() == 200)
+                            if (tHttpResult.getResult() == 1)
                                 listener.onSuccess(tHttpResult.getData());
                             else
-                                listener.onFailure(tHttpResult.getCode());
+                                listener.onFailure(tHttpResult.getResult());
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -104,7 +112,7 @@ class HttpRequestImp implements IHttpRequest {
         int code = 0;
         try {
             JSONObject json = new JSONObject(str);
-            code = json.getInt("code");
+            code = json.getInt("result");
         } catch (JSONException e) {
             e.printStackTrace();
         }

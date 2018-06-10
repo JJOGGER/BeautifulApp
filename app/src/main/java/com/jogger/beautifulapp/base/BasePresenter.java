@@ -4,8 +4,22 @@ package com.jogger.beautifulapp.base;
  * Created by Jogger on 2018/6/7.
  */
 
-public abstract class BasePresenter<V extends BaseView> implements IPresenter<V> {
+public abstract class BasePresenter<V extends BaseView, M extends BaseModel> implements
+        IPresenter<V, M> {
     protected V mView;
+    protected M mModle;
+
+    public BasePresenter() {
+    }
+
+    public BasePresenter(M modle) {
+        attachModel(modle);
+    }
+
+    @Override
+    public void attachModel(M model) {
+        mModle = model;
+    }
 
     @Override
     public void attachView(V view) {
@@ -14,7 +28,7 @@ public abstract class BasePresenter<V extends BaseView> implements IPresenter<V>
 
     @Override
     public void detachView() {
-        mView=null;
+        mView = null;
     }
 
     public boolean isViewAttached() {

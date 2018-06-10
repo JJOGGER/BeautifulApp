@@ -17,9 +17,11 @@ import com.jogger.beautifulapp.util.StatusUtil;
 import java.io.Serializable;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by jogger on 2018/1/10.
+ * 基类activity
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivity implements
@@ -27,6 +29,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     private static final int STATUS_COLOR = Color.parseColor("#3f000000");
     private ProgressDialog mProgressDialog;
     protected T mPresenter;
+    private Unbinder mBind;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -34,7 +37,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         getWindow().setBackgroundDrawable(null);
-        ButterKnife.bind(this);
+        mBind = ButterKnife.bind(this);
         ActivityCollector.addActivity(this);
         createPresenter();
         if (mPresenter != null)
@@ -190,5 +193,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         ActivityCollector.removeActivity(this);
         if (mPresenter != null)
             mPresenter.detachView();
+        mBind.unbind();
     }
 }

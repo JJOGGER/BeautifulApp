@@ -11,5 +11,6 @@ interface IHttpRequest<T> {
     void test(String account, final OnHttpRequestListener<T>
             listener);
 
+    void getDialyDatas(int page,int page_size,int platform,OnHttpRequestListener<T> listener);
 
 }

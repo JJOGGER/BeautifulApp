@@ -6,6 +6,9 @@ import com.jogger.beautifulapp.base.BaseModel;
 import com.jogger.beautifulapp.base.BaseView;
 import com.jogger.beautifulapp.base.IPresenter;
 
+/**
+ * 主页
+ */
 public interface MainContract {
     interface Model extends BaseModel {
     }
@@ -14,9 +17,7 @@ public interface MainContract {
         void initSlidingMenuAnim(SlidingMenu.CanvasTransformer transformer);
     }
 
-    interface Presenter extends IPresenter<View> {
+    interface Presenter extends IPresenter<View, Model> {
         void initSlidingMenuAnim();
-
-        void getEveryDayData();
     }
 }

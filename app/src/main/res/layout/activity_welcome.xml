@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/splash"
-    tools:context=".function.ui.WelcomeActivity">
+    tools:context=".function.ui.activity.WelcomeActivity">
 
 </android.support.constraint.ConstraintLayout>

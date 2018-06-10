@@ -1,4 +1,4 @@
-package com.jogger.beautifulapp.function.ui;
+package com.jogger.beautifulapp.function.ui.activity;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseActivity;
@@ -21,6 +21,7 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 startNewActivity(MainActivity.class);
+                finish();
             }
         }, 500);
     }

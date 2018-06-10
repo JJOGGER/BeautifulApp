@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="immersive" type="id">immersive</item>
+    <item type="id" name="viewpager" />
+
 </resources>

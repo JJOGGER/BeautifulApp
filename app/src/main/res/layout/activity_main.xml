@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context="com.jogger.beautifulapp.function.ui.MainActivity">
+    tools:context="com.jogger.beautifulapp.function.ui.activity.MainActivity">
 
     <!--<com.jeremyfeinstein.slidingmenu.SlidingMenu-->
     <!--xmlns:sliding="http://schemas.android.com/apk/res-auto"-->

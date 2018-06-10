@@ -19,17 +19,21 @@ import com.jogger.beautifulapp.util.Util;
 import java.io.Serializable;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by jogger on 2017/3/15.
  * 基类fragment
  */
-
-public abstract class BaseFragment extends Fragment {
+@SuppressWarnings("unchecked")
+public abstract class BaseFragment<T extends IPresenter> extends Fragment implements
+        BaseView {
     public Activity mActivity;
     public boolean mIsVisibleToUser;
     public boolean mIsViewCreated;
     private ProgressDialog mProgressDialog;
+    private Unbinder mBind;
+    protected T mPresenter;
 
     @Override
     public void onAttach(Context context) {
@@ -45,8 +49,9 @@ public abstract class BaseFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable
+                                     Bundle savedInstanceState) {
         LayoutInflater myInflater = setViewStyle(inflater);
         View view;
         if (myInflater != null) {
@@ -54,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
         } else {
             view = inflater.inflate(getLayoutId(), null);
         }
-        ButterKnife.bind(this, view);
+        mBind = ButterKnife.bind(this, view);
         //沉浸式状态栏
         return view;
     }
@@ -63,22 +68,24 @@ public abstract class BaseFragment extends Fragment {
         return null;
     }
 
-    ;
-
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mIsViewCreated = true;
+        createPresenter();
+        if (mPresenter != null)
+            mPresenter.attachView(this);
         init();
         loadData();
     }
 
-    public abstract int getLayoutId();
 
     public void init() {
     }
 
     public void loadData() {
     }
+
+    protected abstract void createPresenter();
 
     public void existData(boolean existData) {
     }
@@ -185,6 +192,9 @@ public abstract class BaseFragment extends Fragment {
 //        MyApp.getRefWatcher().watch(this);
         cancelProgressDialog();
         mIsViewCreated = false;
+        if (mPresenter != null)
+            mPresenter.detachView();
+        mBind.unbind();
     }
 
 

@@ -6,15 +6,22 @@ import android.view.animation.Interpolator;
 import com.jeremyfeinstein.slidingmenu.SlidingMenu;
 import com.jogger.beautifulapp.base.BasePresenter;
 import com.jogger.beautifulapp.function.contract.MainContract;
-import com.jogger.beautifulapp.util.L;
 
 /**
  * Created by Jogger on 2018/6/7.
+ * 主页
  */
 
-public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract
-        .Presenter {
+public class MainPresenter extends BasePresenter<MainContract.View, MainContract.Model>
+        implements MainContract.Presenter {
 
+    public MainPresenter(MainContract.Model modle) {
+        super(modle);
+    }
+
+    /**
+     * 初始化侧滑菜单
+     */
     @Override
     public void initSlidingMenuAnim() {
         final Interpolator interpolator = new Interpolator() {
@@ -27,7 +34,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         SlidingMenu.CanvasTransformer canvasTransformer = new SlidingMenu.CanvasTransformer() {
             @Override
             public void transformCanvas(Canvas canvas, float percentOpen) {
-                L.e("---------percentOpen:" + percentOpen);
                 float scale = (float) (percentOpen * 0.25 + 0.75);
                 canvas.scale(scale, scale, canvas.getWidth() / 2, canvas.getHeight() / 2);
                 canvas.translate(0, (1 - interpolator.getInterpolation(percentOpen)));
@@ -35,11 +41,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
         };
         mView.initSlidingMenuAnim(canvasTransformer);
-    }
-
-    @Override
-    public void getEveryDayData() {
-
     }
 
 }

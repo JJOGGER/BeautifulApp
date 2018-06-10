@@ -7,7 +7,7 @@ package com.jogger.beautifulapp.http;
 
 public class HttpResult<T> {
     private T data;
-    private int code;
+    private int result;
 
     public T getData() {
         return data;
@@ -17,19 +17,19 @@ public class HttpResult<T> {
         this.data = data;
     }
 
-    public int getCode() {
-        return code;
+    public int getResult() {
+        return result;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setResult(int result) {
+        this.result = result;
     }
 
     @Override
     public String toString() {
         return "HttpResult{" +
                 "data=" + data +
-                ", code=" + code +
+                ", result=" + result +
                 '}';
     }
 }
