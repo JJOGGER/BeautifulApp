@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="find_tab">
+        <item>@string/choice</item>
+        <item>@string/recent</item>
+        <item>@string/around</item>
+        <item>@string/compilations</item>
+        <item>@string/nice_friend</item>
+    </string-array>
+    <string name="choice">精选</string>
+    <string name="recent">最近</string>
+    <string name="around">周边</string>
+    <string name="compilations">合辑</string>
+    <string name="nice_friend">美友</string>
+</resources>

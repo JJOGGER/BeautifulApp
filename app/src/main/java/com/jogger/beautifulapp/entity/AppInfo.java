@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Jogger on 2018/6/9.
+ * Created by Jogger on 2018/6/9.应用信息
  */
 
-public class AppInfo implements Serializable{
+public class AppInfo implements Serializable {
     private String thankto;
     private String cover_comment_author_avatar_url;
     private String video_url;
     private String cover_comment_content;
+    private List<SameApp> same_apps;
+    private List<User> up_users;
     private String author_gender;
     private String qrcode_image;
     private String create_time;
@@ -78,6 +80,22 @@ public class AppInfo implements Serializable{
 
     public void setVideo_url(String video_url) {
         this.video_url = video_url;
+    }
+
+    public List<SameApp> getSame_apps() {
+        return same_apps;
+    }
+
+    public void setSame_apps(List<SameApp> same_apps) {
+        this.same_apps = same_apps;
+    }
+
+    public List<User> getUp_users() {
+        return up_users;
+    }
+
+    public void setUp_users(List<User> up_users) {
+        this.up_users = up_users;
     }
 
     public String getCover_comment_content() {
@@ -432,84 +450,84 @@ public class AppInfo implements Serializable{
         this.package_name = package_name;
     }
 
-    class Info{
-         private List<String> up_users;
-         private  List<String> fav_users;
-         private String fav;
-         private String up;
-         private String down;
-         private String av;
-         private List<String> down_users;
+    class Info implements Serializable {
+        private List<String> up_users;
+        private List<String> fav_users;
+        private String fav;
+        private String up;
+        private String down;
+        private String av;
+        private List<String> down_users;
 
-         public List<String> getUp_users() {
-             return up_users;
-         }
+        public List<String> getUp_users() {
+            return up_users;
+        }
 
-         public void setUp_users(List<String> up_users) {
-             this.up_users = up_users;
-         }
+        public void setUp_users(List<String> up_users) {
+            this.up_users = up_users;
+        }
 
-         public List<String> getFav_users() {
-             return fav_users;
-         }
+        public List<String> getFav_users() {
+            return fav_users;
+        }
 
-         public void setFav_users(List<String> fav_users) {
-             this.fav_users = fav_users;
-         }
+        public void setFav_users(List<String> fav_users) {
+            this.fav_users = fav_users;
+        }
 
-         public String getFav() {
-             return fav;
-         }
+        public String getFav() {
+            return fav;
+        }
 
-         public void setFav(String fav) {
-             this.fav = fav;
-         }
+        public void setFav(String fav) {
+            this.fav = fav;
+        }
 
-         public String getUp() {
-             return up;
-         }
+        public String getUp() {
+            return up;
+        }
 
-         public void setUp(String up) {
-             this.up = up;
-         }
+        public void setUp(String up) {
+            this.up = up;
+        }
 
-         public String getDown() {
-             return down;
-         }
+        public String getDown() {
+            return down;
+        }
 
-         public void setDown(String down) {
-             this.down = down;
-         }
+        public void setDown(String down) {
+            this.down = down;
+        }
 
-         public String getAv() {
-             return av;
-         }
+        public String getAv() {
+            return av;
+        }
 
-         public void setAv(String av) {
-             this.av = av;
-         }
+        public void setAv(String av) {
+            this.av = av;
+        }
 
-         public List<String> getDown_users() {
-             return down_users;
-         }
+        public List<String> getDown_users() {
+            return down_users;
+        }
 
-         public void setDown_users(List<String> down_users) {
-             this.down_users = down_users;
-         }
+        public void setDown_users(List<String> down_users) {
+            this.down_users = down_users;
+        }
 
-         @Override
-         public String toString() {
-             return "Info{" +
-                     "up_users=" + up_users +
-                     ", fav_users=" + fav_users +
-                     ", fav='" + fav + '\'' +
-                     ", up='" + up + '\'' +
-                     ", down='" + down + '\'' +
-                     ", av='" + av + '\'' +
-                     ", down_users=" + down_users +
-                     '}';
-         }
-     }
+        @Override
+        public String toString() {
+            return "Info{" +
+                    "up_users=" + up_users +
+                    ", fav_users=" + fav_users +
+                    ", fav='" + fav + '\'' +
+                    ", up='" + up + '\'' +
+                    ", down='" + down + '\'' +
+                    ", av='" + av + '\'' +
+                    ", down_users=" + down_users +
+                    '}';
+        }
+    }
 
     @Override
     public String toString() {

@@ -4,11 +4,12 @@ import java.util.List;
 
 /**
  * Created by Jogger on 2018/6/9.
+ * 每日数据
  */
 
-public class AppData {
+public class AppRecentData {
     private int has_next;
-    List<AppInfo> apps;
+    private List<RecentAppData> apps;
 
     public int getHas_next() {
         return has_next;
@@ -18,17 +19,17 @@ public class AppData {
         this.has_next = has_next;
     }
 
-    public List<AppInfo> getApps() {
+    public List<RecentAppData> getApps() {
         return apps;
     }
 
-    public void setApps(List<AppInfo> apps) {
+    public void setApps(List<RecentAppData> apps) {
         this.apps = apps;
     }
 
     @Override
     public String toString() {
-        return "AppData{" +
+        return "AppInfoData{" +
                 "has_next=" + has_next +
                 ", apps=" + apps +
                 '}';

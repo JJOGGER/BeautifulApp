@@ -63,8 +63,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         showFragment(DialyFragment.class);
     }
 
-    public void setBackgroundColor(int color) {
-        clMain.setBackgroundColor(color);
+    public SlidingMenu getSlidingMenu() {
+        return smMenu;
     }
 
     public ConstraintLayout getBaseContainer() {
@@ -101,6 +101,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
                 break;
         }
+        smMenu.toggle();
     }
 
     /**

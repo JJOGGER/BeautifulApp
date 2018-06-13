@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="false"
@@ -16,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".function.ui.activity.MainActivity">
+        <activity
+            android:name=".function.ui.activity.MainActivity"
+            android:launchMode="singleTop">
         </activity>
         <activity android:name=".function.ui.activity.WelcomeActivity">
             <intent-filter>

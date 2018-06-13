@@ -3,27 +3,31 @@ package com.jogger.beautifulapp.function.ui.fragment;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
-import com.jogger.beautifulapp.entity.AppData;
+import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.function.adapter.DialyViewpagerAdapter;
 import com.jogger.beautifulapp.function.contract.DialyContract;
-import com.jogger.beautifulapp.function.model.DialyModel;
 import com.jogger.beautifulapp.function.presenter.DialyPresenter;
 import com.jogger.beautifulapp.function.ui.activity.MainActivity;
 import com.jogger.beautifulapp.util.AnimatorUtil;
+import com.jogger.beautifulapp.util.L;
 import com.jogger.beautifulapp.widget.rhythm.IRhythmItemListener;
 import com.jogger.beautifulapp.widget.rhythm.RhythmAdapter;
 import com.jogger.beautifulapp.widget.rhythm.RhythmLayout;
+import com.jogger.refreshlayout.PullToRefreshBase;
 import com.jogger.refreshlayout.PullToRefreshViewPager;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Jogger on 2018/6/10.
@@ -31,18 +35,31 @@ import butterknife.BindView;
  */
 
 public class DialyFragment extends BaseFragment<DialyPresenter> implements DialyContract.View,
-        IRhythmItemListener, ViewPager.OnPageChangeListener {
+        IRhythmItemListener, ViewPager.OnPageChangeListener, PullToRefreshBase
+                .OnRefreshListener<ViewPager> {
     @BindView(R.id.ll_container)
     LinearLayout llContainer;
     @BindView(R.id.rhythm_layout)
     RhythmLayout rhythmLayout;
     @BindView(R.id.vp_content)
     PullToRefreshViewPager vpContent;
+    @BindView(R.id.tv_nice_title)
+    TextView tvNiceTitle;
+    @BindView(R.id.ll_date)
+    LinearLayout llDate;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+    @BindView(R.id.tv_month)
+    TextView tvMonth;
+    @BindView(R.id.tv_week)
+    TextView tvWeek;
     private int mCurrentPage = 1;
     private int mPageSize = 20;
     private List<AppInfo> mAppInfos;
     private RhythmAdapter mAdapter;
     private int mPreColor;
+    private boolean mIsFirstLoad = true;
+    private DialyViewpagerAdapter mViewpagerAdapter;
 
     @Override
     public int getLayoutId() {
@@ -51,12 +68,14 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     @Override
     protected void createPresenter() {
-        mPresenter = new DialyPresenter(new DialyModel());
+        mPresenter = new DialyPresenter();
     }
 
     @Override
     public void init() {
         mPresenter.getDialyDatas(mCurrentPage, mPageSize);
+        tvNiceTitle.setText(String.format(getString(R.string.nice_title_format), getString(R
+                .string.today)));
         //设置钢琴布局的高度 高度为钢琴布局item的宽度+10dp
         int height = (int) rhythmLayout.getRhythmItemWidth() + (int) TypedValue.applyDimension(1,
                 10.0F, getResources().getDisplayMetrics());
@@ -67,21 +86,40 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
     }
 
     @Override
-    public void loadDatas(AppData appData) {
-        mAppInfos = appData.getApps();
+    public void loadDatas(AppInfoData appData) {
+        mAppInfos = (List<AppInfo>) appData.getApps();
+        if (!mIsFirstLoad) {
+            vpContent.onRefreshComplete();
+            vpContent.getRefreshableView().setCurrentItem(0);
+            mViewpagerAdapter.notifyDataSetChanged();
+            return;
+        }
+        mIsFirstLoad = false;
         int color = Color.parseColor(mAppInfos.get(0)
                 .getAuthor_bgcolor());
-        ((MainActivity) mActivity).setBackgroundColor(color);
+        ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
         llContainer.setBackgroundColor(color);
         mPreColor = color;
         mAdapter = new RhythmAdapter(mActivity, rhythmLayout, mAppInfos);
         rhythmLayout.setAdapter(mAdapter);
         ViewPager vp = vpContent.getRefreshableView();
-        vp.setCurrentItem(0);
         vp.setOffscreenPageLimit(3);
-        vp.setAdapter(new DialyViewpagerAdapter(getChildFragmentManager(), mAppInfos));
+        mViewpagerAdapter = new DialyViewpagerAdapter
+                (getChildFragmentManager(), mAppInfos);
+        vp.setAdapter(mViewpagerAdapter);
         vp.addOnPageChangeListener(this);
+        vpContent.setOnRefreshListener(this);
         rhythmLayout.setScrollRhythmStartDelayTime(400);
+        vp.setCurrentItem(0);
+        onPageSelected(0);
+    }
+
+    @Override
+    public void updateDate(int weekResId, String month, int day) {
+        //更新日期
+        tvWeek.setText(weekResId);
+        tvMonth.setText(month);
+        tvDate.setText(String.valueOf(day));
     }
 
     /**
@@ -106,7 +144,6 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     @Override
     public void onRhythmItemChanged(int paramInt) {
-
     }
 
     @Override
@@ -126,7 +163,18 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     @Override
     public void onPageSelected(int position) {
+        L.e("---onPageSelected"+position);
         onAppPagerChange(position);
+        tvNiceTitle.setVisibility((position == 0 || position == 1) ? View.VISIBLE : View.GONE);
+        llDate.setVisibility((position == 0 || position == 1) ? View.GONE : View.VISIBLE);
+        tvDate.setVisibility((position == 0 || position == 1) ? View.GONE : View.VISIBLE);
+        if (position == 0)
+            tvNiceTitle.setText(String.format(getString(R.string.nice_title_format), getString(R
+                    .string.today)));
+        else if (position == 1)
+            tvNiceTitle.setText(String.format(getString(R.string.nice_title_format), getString(R
+                    .string.yesterday)));
+        else mPresenter.updateDate(mAppInfos.get(position).getPublish_date());
     }
 
     @Override
@@ -134,4 +182,20 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     }
 
+    @Override
+    public void onRefresh(PullToRefreshBase<ViewPager> refreshView) {
+        mPresenter.getDialyDatas(1, 20);
+    }
+
+    @OnClick({R.id.iv_title, R.id.tv_date})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_title:
+                ((MainActivity) mActivity).getSlidingMenu().toggle();
+                break;
+            case R.id.tv_date:
+                vpContent.getRefreshableView().setCurrentItem(0);
+                break;
+        }
+    }
 }

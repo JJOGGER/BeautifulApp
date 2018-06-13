@@ -1,12 +1,13 @@
 package com.jogger.beautifulapp.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Jogger on 2018/6/9.
  */
 
-public class CommentData {
+public class CommentData implements Serializable{
     private int has_next;
     private List<?> data;
 

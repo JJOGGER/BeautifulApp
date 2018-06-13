@@ -1,10 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/ll_container"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="54dp">
+
+        <ImageView
+            android:id="@+id/iv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/nice_app_title_selector"
+            android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_nice_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingRight="16dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="16dp"
+            tools:ignore="RelativeOverlap,RtlSymmetry"/>
+
+        <LinearLayout
+            android:id="@+id/ll_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/ll_date"
+            android:layout_toStartOf="@id/ll_date"
+            android:drawableLeft="@drawable/backtohome_selector"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/backtohome_selector"
+            android:gravity="bottom"
+            android:paddingEnd="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry"/>
+    </RelativeLayout>
 
     <com.jogger.refreshlayout.PullToRefreshViewPager
         android:id="@+id/vp_content"
@@ -17,8 +93,8 @@
         android:id="@+id/rhythm_layout"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:layout_marginTop="6dp"
         android:layout_gravity="bottom"
+        android:layout_marginTop="6dp"
         android:scrollbars="none">
 
         <LinearLayout

@@ -1,10 +1,9 @@
 package com.jogger.beautifulapp.entity;
 
-/**
- * Created by Jogger on 2018/6/9.
- */
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private String userName;
     private String career;
     private String bg_color;

@@ -11,6 +11,15 @@ interface IHttpRequest<T> {
     void test(String account, final OnHttpRequestListener<T>
             listener);
 
-    void getDialyDatas(int page,int page_size,int platform,OnHttpRequestListener<T> listener);
+    void getDialyDatas(int page, int page_size, int platform, OnHttpRequestListener<T> listener);
 
+    void getFindRecentDatas(int page, int page_size, int platform, OnHttpRequestListener<T>
+            listener);
+
+    void getFindChoiceDatas(String startDate,int platform, OnHttpRequestListener<T> listener);
+
+    void getFindRoundTopDatas(int platform, OnHttpRequestListener<T> listener);
+
+    void getFindRoundDatas(int page, int page_size, int platform, OnHttpRequestListener<T>
+            listener);
 }

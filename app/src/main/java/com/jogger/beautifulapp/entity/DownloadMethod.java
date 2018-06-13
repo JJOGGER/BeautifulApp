@@ -1,10 +1,9 @@
 package com.jogger.beautifulapp.entity;
 
-/**
- * Created by Jogger on 2018/6/9.
- */
+import java.io.Serializable;
 
-public class DownloadMethod {
+
+public class DownloadMethod implements Serializable{
     private String app_market_name;
     private String app_market_verbose_name;
     private String download_url;

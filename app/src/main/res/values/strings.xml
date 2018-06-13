@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">BeautifulApp</string>
     <string name="waiting">请稍候</string>
+    <string name="nice_app">最美应用</string>
+    <string name="nice_title_format">%s&#183;最美</string>
+    <string name="today">今日</string>
+    <string name="yesterday">昨日</string>
+    <string name="sunday">星期日</string>
+    <string name="monday">星期一</string>
+    <string name="saturday">星期六</string>
+    <string name="friday">星期五</string>
+    <string name="thursday">星期四</string>
+    <string name="wednesday">星期三</string>
+    <string name="tuesday">星期二</string>
+    <string name="month">月</string>
+    <string name="app_tags_format">#每日最美 #%s</string>
 </resources>
