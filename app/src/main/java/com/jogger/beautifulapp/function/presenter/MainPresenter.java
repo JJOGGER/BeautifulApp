@@ -6,6 +6,7 @@ import android.view.animation.Interpolator;
 import com.jeremyfeinstein.slidingmenu.SlidingMenu;
 import com.jogger.beautifulapp.base.BasePresenter;
 import com.jogger.beautifulapp.function.contract.MainContract;
+import com.jogger.beautifulapp.function.model.MainModel;
 
 /**
  * Created by Jogger on 2018/6/7.
@@ -14,11 +15,6 @@ import com.jogger.beautifulapp.function.contract.MainContract;
 
 public class MainPresenter extends BasePresenter<MainContract.View, MainContract.Model>
         implements MainContract.Presenter {
-
-    public MainPresenter(MainContract.Model modle) {
-        super(modle);
-    }
-
     /**
      * 初始化侧滑菜单
      */
@@ -43,4 +39,8 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
         mView.initSlidingMenuAnim(canvasTransformer);
     }
 
+    @Override
+    public MainContract.Model attachModel() {
+        return new MainModel();
+    }
 }

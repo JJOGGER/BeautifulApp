@@ -33,16 +33,16 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
     }
 
     @Override
-    protected void createPresenter() {
-        mPresenter = new FindChoicePresenter();
-    }
-
-    @Override
     public void init() {
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
         mAdapter = new FindChoiceAdapter(null);
         rvContent.setAdapter(mAdapter);
         mPresenter.getFindChoiceDatas(String.valueOf(0));
+    }
+
+    @Override
+    protected FindChoicePresenter createPresenter() {
+        return new FindChoicePresenter();
     }
 
     @Override

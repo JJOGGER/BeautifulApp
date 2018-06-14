@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.entity.AppInfoData;
+import com.jogger.beautifulapp.entity.AppMediaArticleData;
+import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
-import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
 
@@ -69,7 +71,7 @@ class HttpRequestImp implements IHttpRequest {
 
     @Override
     public void getFindRoundTopDatas(int platform, OnHttpRequestListener listener) {
-        Observable<HttpResult<MediaArticle>> getFindRoundTopDatas = mRequestService
+        Observable<HttpResult<AppMediaArticleData>> getFindRoundTopDatas = mRequestService
                 .getFindRoundTopDatas(platform);
         enqueue(getFindRoundTopDatas, listener);
     }
@@ -77,9 +79,24 @@ class HttpRequestImp implements IHttpRequest {
     @Override
     public void getFindRoundDatas(int page, int page_size, int platform, OnHttpRequestListener
             listener) {
-        Observable<HttpResult<MediaArticle>> getFindRoundDatas = mRequestService
+        Observable<HttpResult<AppMediaArticleData>> getFindRoundDatas = mRequestService
                 .getFindRoundDatas(page, page_size, platform);
         enqueue(getFindRoundDatas, listener);
+    }
+
+    @Override
+    public void getFindCompilationsDatas(int page, int page_size, int platform,
+                                         OnHttpRequestListener listener) {
+        Observable<HttpResult<AppCompilationsData>> getFindCompilationsDatas = mRequestService
+                .getFindCompilationsDatas(page, page_size, platform);
+        enqueue(getFindCompilationsDatas, listener);
+    }
+
+    @Override
+    public void getFindNiceFriendDatas(OnHttpRequestListener listener) {
+        Observable<HttpResult<AppNiceFriendData>> getFindNiceFriendDatas = mRequestService
+                .getFindNiceFriendDatas();
+        enqueue(getFindNiceFriendDatas, listener);
     }
 
     /**

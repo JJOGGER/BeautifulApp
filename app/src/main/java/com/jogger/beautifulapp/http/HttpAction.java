@@ -1,14 +1,13 @@
 package com.jogger.beautifulapp.http;
 
+import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.entity.AppInfoData;
+import com.jogger.beautifulapp.entity.AppMediaArticleData;
+import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
-import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
-/**
- * Created by Jogger on 2018/6/3.
- */
 @SuppressWarnings("unchecked")
 public class HttpAction extends BaseHttpAction {
     private static HttpAction sHttpAction;
@@ -53,7 +52,7 @@ public class HttpAction extends BaseHttpAction {
     /**
      * 发现周边头部
      */
-    public void getFindRoundTopDatas(OnHttpRequestListener<MediaArticle> listener) {
+    public void getFindRoundTopDatas(OnHttpRequestListener<AppMediaArticleData> listener) {
         mHttpRequest.getFindRoundTopDatas(2, listener);
     }
 
@@ -61,8 +60,17 @@ public class HttpAction extends BaseHttpAction {
      * 发现周边
      */
     public void getFindRoundDatas(int page, int page_size,
-                                  OnHttpRequestListener<MediaArticle> listener) {
+                                  OnHttpRequestListener<AppMediaArticleData> listener) {
         mHttpRequest.getFindRoundDatas(page, page_size, 2, listener);
+    }
+
+    public void getFindCompilationsDatas(int page, int page_size,
+                                         OnHttpRequestListener<AppCompilationsData> listener) {
+        mHttpRequest.getFindCompilationsDatas(page, page_size, 2, listener);
+    }
+
+    public  void getFindNiceFriendDatas(OnHttpRequestListener<AppNiceFriendData> listener){
+        mHttpRequest.getFindNiceFriendDatas(listener);
     }
 
     @Override

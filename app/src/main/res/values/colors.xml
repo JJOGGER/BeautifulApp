@@ -11,4 +11,6 @@
     <color name="gray_eeeeee">#eeeeee</color>
     <color name="gray_888888">#888888</color>
     <color name="gray_dcdcdc">#dcdcdc</color>
+    <color name="colorCategory">#00AAC6</color>
+    <color name="colorFind">#02a0d3</color>
 </resources>

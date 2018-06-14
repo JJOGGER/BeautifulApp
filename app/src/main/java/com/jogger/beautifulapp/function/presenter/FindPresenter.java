@@ -8,4 +8,8 @@ import com.jogger.beautifulapp.function.contract.FindContract;
  */
 
 public class FindPresenter extends BasePresenter<FindContract.View, FindContract.Model> {
+    @Override
+    public FindContract.Model attachModel() {
+        return null;
+    }
 }

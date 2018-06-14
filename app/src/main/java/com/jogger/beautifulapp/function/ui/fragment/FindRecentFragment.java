@@ -28,16 +28,16 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
     }
 
     @Override
-    protected void createPresenter() {
-        mPresenter = new FindRecentPresenter();
-    }
-
-    @Override
     public void init() {
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
         mAdapter = new FindRecentAdapter(null);
         rvContent.setAdapter(mAdapter);
         mPresenter.getRecentDatas(-1, 20);
+    }
+
+    @Override
+    protected FindRecentPresenter createPresenter() {
+        return new FindRecentPresenter();
     }
 
     @Override

@@ -19,7 +19,6 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
     private SimpleDateFormat mDateFormat;
 
     public DialyPresenter() {
-        attachModel(new DialyModel());
         mDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
     }
 
@@ -75,4 +74,8 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
         mView.updateDate(weekResId, month, c.get(Calendar.DAY_OF_MONTH));
     }
 
+    @Override
+    public DialyContract.Model attachModel() {
+        return new DialyModel();
+    }
 }

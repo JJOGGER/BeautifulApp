@@ -71,7 +71,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mIsViewCreated = true;
-        createPresenter();
+        mPresenter = createPresenter();
         if (mPresenter != null)
             mPresenter.attachView(this);
         init();
@@ -85,7 +85,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     public void loadData() {
     }
 
-    protected abstract void createPresenter();
+    protected abstract T createPresenter();
 
     public void existData(boolean existData) {
     }

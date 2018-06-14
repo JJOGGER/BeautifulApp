@@ -10,14 +10,16 @@ import com.jeremyfeinstein.slidingmenu.SlidingMenu;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseActivity;
 import com.jogger.beautifulapp.base.BaseFragment;
+import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.function.contract.MainContract;
-import com.jogger.beautifulapp.function.model.MainModel;
 import com.jogger.beautifulapp.function.presenter.MainPresenter;
 import com.jogger.beautifulapp.function.ui.fragment.CategoryFragment;
 import com.jogger.beautifulapp.function.ui.fragment.DialyFragment;
 import com.jogger.beautifulapp.function.ui.fragment.FindFragment;
 import com.jogger.beautifulapp.function.ui.fragment.GamesFragment;
 import com.jogger.beautifulapp.function.ui.fragment.RankFragment;
+import com.jogger.beautifulapp.util.L;
+import com.jogger.beautifulapp.util.SPUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,8 +48,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    protected void createPresenter() {
-        mPresenter = new MainPresenter(new MainModel());
+    protected MainPresenter createPresenter() {
+        return new MainPresenter();
     }
 
     @Override
@@ -83,22 +85,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.tv_find:
                 showFragment(FindFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+                clMain.setBackgroundColor(getResources().getColor(R.color.colorFind));
                 break;
             case R.id.tv_dialy:
                 showFragment(DialyFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+                L.e("---------DIALY_LAST_COLOR"+SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR));
+                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,getResources().getColor(R.color.colorAccent)));
                 break;
             case R.id.tv_category:
                 showFragment(CategoryFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+                clMain.setBackgroundColor(getResources().getColor(R.color.colorCategory));
                 break;
             case R.id.tv_games:
                 showFragment(GamesFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+                clMain.setBackgroundColor(getResources().getColor(R.color.colorFind));
                 break;
             case R.id.tv_rank:
                 showFragment(RankFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+                clMain.setBackgroundColor(getResources().getColor(R.color.colorFind));
                 break;
         }
         smMenu.toggle();

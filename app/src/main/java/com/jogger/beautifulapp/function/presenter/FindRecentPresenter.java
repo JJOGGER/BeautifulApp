@@ -10,16 +10,13 @@ import com.jogger.beautifulapp.util.L;
 
 public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
         FindRecentContract.Model> implements FindRecentContract.Presenter {
-    public FindRecentPresenter() {
-        attachModel(new FindRecentModel());
-    }
 
     @Override
     public void getRecentDatas(int page, int pageSize) {
         mModle.getRecentDatas(page, pageSize, new OnHttpRequestListener<AppRecentData>() {
             @Override
             public void onFailure(int errorCode) {
-                L.e("--------errorCode:"+errorCode);
+                L.e("--------errorCode:" + errorCode);
             }
 
             @Override
@@ -28,5 +25,10 @@ public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
                 mView.loadDatas(appData);
             }
         });
+    }
+
+    @Override
+    public FindRecentContract.Model attachModel() {
+        return new FindRecentModel();
     }
 }

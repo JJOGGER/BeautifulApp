@@ -9,9 +9,6 @@ import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 public class FindChoicePresenter extends BasePresenter<FindChoiceContract.View,
         FindChoiceContract.Model> implements FindChoiceContract.Presenter {
-    public FindChoicePresenter() {
-        attachModel(new FindChoiceModel());
-    }
 
     @Override
     public void getFindChoiceDatas(String startDate) {
@@ -27,5 +24,10 @@ public class FindChoicePresenter extends BasePresenter<FindChoiceContract.View,
                 mView.loadDatas(appData);
             }
         });
+    }
+
+    @Override
+    public FindChoiceContract.Model attachModel() {
+        return new FindChoiceModel();
     }
 }

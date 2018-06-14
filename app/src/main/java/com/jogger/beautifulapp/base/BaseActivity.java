@@ -39,7 +39,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         getWindow().setBackgroundDrawable(null);
         mBind = ButterKnife.bind(this);
         ActivityCollector.addActivity(this);
-        createPresenter();
+        mPresenter=createPresenter();
         if (mPresenter != null)
             mPresenter.attachView(this);
         //开启沉浸式状态栏
@@ -53,7 +53,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         loadData();
     }
 
-    protected abstract void createPresenter();
+    protected abstract T createPresenter();
 
     @Override
     protected void onResume() {

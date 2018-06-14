@@ -1,0 +1,32 @@
+package com.jogger.beautifulapp.function.presenter;
+
+import com.jogger.beautifulapp.base.BasePresenter;
+import com.jogger.beautifulapp.entity.AppNiceFriendData;
+import com.jogger.beautifulapp.function.contract.FindNiceFriendContract;
+import com.jogger.beautifulapp.function.model.FindNiceFriendModel;
+import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+
+
+public class FindNiceFriendPresenter extends BasePresenter<FindNiceFriendContract.View,
+        FindNiceFriendContract.Model> implements FindNiceFriendContract.Presenter {
+
+    @Override
+    public FindNiceFriendContract.Model attachModel() {
+        return new FindNiceFriendModel();
+    }
+
+    @Override
+    public void getFindNickFriendDatas() {
+        mModle.getFindNiceFriendDatas(new OnHttpRequestListener<AppNiceFriendData>() {
+            @Override
+            public void onFailure(int errorCode) {
+            }
+
+            @Override
+            public void onSuccess(AppNiceFriendData appNiceFriendData) {
+                if (mView == null) return;
+                mView.loadDatas(appNiceFriendData);
+            }
+        });
+    }
+}

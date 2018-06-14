@@ -6,6 +6,6 @@ public interface IPresenter<V extends BaseView, M extends BaseModel> {
 
     void detachView();
 
-    void attachModel(M model);
+    M attachModel();
 
 }

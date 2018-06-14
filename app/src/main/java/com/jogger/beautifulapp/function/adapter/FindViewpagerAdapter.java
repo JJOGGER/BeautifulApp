@@ -7,12 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.function.ui.fragment.FindChoiceFragment;
+import com.jogger.beautifulapp.function.ui.fragment.FindCompilationsFragment;
 import com.jogger.beautifulapp.function.ui.fragment.FindRecentFragment;
+import com.jogger.beautifulapp.function.ui.fragment.FindRoundFragment;
 import com.jogger.beautifulapp.util.Util;
 
-/**
- * Created by Jogger on 2018/6/12.
- */
 
 public class FindViewpagerAdapter extends FragmentPagerAdapter {
 
@@ -31,7 +30,9 @@ public class FindViewpagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return new FindRecentFragment();
             case 2:
+                return new FindRoundFragment();
             case 3:
+                return new FindCompilationsFragment();
             case 4:
                 return new FindChoiceFragment();
             default:

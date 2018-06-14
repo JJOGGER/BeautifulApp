@@ -8,4 +8,8 @@ public class DialyPagerPresenter extends BasePresenter<DialyPagerContract.View,
         DialyPagerContract.Model>
         implements DialyPagerContract.Presenter {
 
+    @Override
+    public DialyPagerContract.Model attachModel() {
+        return null;
+    }
 }

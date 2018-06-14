@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
+import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.function.contract.DialyPagerContract;
@@ -48,7 +49,8 @@ public class DialiyPageFragment extends BaseFragment implements DialyPagerContra
     }
 
     @Override
-    protected void createPresenter() {
+    protected IPresenter createPresenter() {
+        return null;
     }
 
 }

@@ -34,17 +34,17 @@ public class FindFragment extends BaseFragment<FindPresenter> implements FindCon
     }
 
     @Override
-    protected void createPresenter() {
-        mPresenter = new FindPresenter();
-    }
-
-    @Override
     public void init() {
         vpContent.setOffscreenPageLimit(3);
         vpContent.setAdapter(new FindViewpagerAdapter(getChildFragmentManager()));
         tlTab.setupWithViewPager(vpContent);
         setIndicator(tlTab);
         vpContent.addOnPageChangeListener(this);
+    }
+
+    @Override
+    protected FindPresenter createPresenter() {
+        return new FindPresenter();
     }
 
     @Override

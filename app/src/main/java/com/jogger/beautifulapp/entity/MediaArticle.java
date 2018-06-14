@@ -121,4 +121,5 @@ public class MediaArticle implements Serializable {
                 ", tags=" + tags +
                 '}';
     }
+
 }

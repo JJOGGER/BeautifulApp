@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
+import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.function.adapter.DialyViewpagerAdapter;
@@ -18,6 +19,7 @@ import com.jogger.beautifulapp.function.presenter.DialyPresenter;
 import com.jogger.beautifulapp.function.ui.activity.MainActivity;
 import com.jogger.beautifulapp.util.AnimatorUtil;
 import com.jogger.beautifulapp.util.L;
+import com.jogger.beautifulapp.util.SPUtil;
 import com.jogger.beautifulapp.widget.rhythm.IRhythmItemListener;
 import com.jogger.beautifulapp.widget.rhythm.RhythmAdapter;
 import com.jogger.beautifulapp.widget.rhythm.RhythmLayout;
@@ -66,10 +68,6 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
         return R.layout.fragment_dialy;
     }
 
-    @Override
-    protected void createPresenter() {
-        mPresenter = new DialyPresenter();
-    }
 
     @Override
     public void init() {
@@ -86,8 +84,13 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
     }
 
     @Override
+    protected DialyPresenter createPresenter() {
+        return new DialyPresenter();
+    }
+
+    @Override
     public void loadDatas(AppInfoData appData) {
-        mAppInfos = (List<AppInfo>) appData.getApps();
+        mAppInfos = appData.getApps();
         if (!mIsFirstLoad) {
             vpContent.onRefreshComplete();
             vpContent.getRefreshableView().setCurrentItem(0);
@@ -98,8 +101,7 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
         int color = Color.parseColor(mAppInfos.get(0)
                 .getAuthor_bgcolor());
         ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
-        llContainer.setBackgroundColor(color);
-        mPreColor = color;
+        setBgColor(color);
         mAdapter = new RhythmAdapter(mActivity, rhythmLayout, mAppInfos);
         rhythmLayout.setAdapter(mAdapter);
         ViewPager vp = vpContent.getRefreshableView();
@@ -138,8 +140,15 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
         //执行颜色转换动画
         AnimatorUtil.showBackgroundColorAnimation(((MainActivity) mActivity).getBaseContainer(),
                 mPreColor, color, 400);
+        L.e("----------onAppPagerChange");
+        setBgColor(color);
+    }
+
+    private void setBgColor(int color) {
         llContainer.setBackgroundColor(color);
+        ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
         mPreColor = color;
+        SPUtil.getInstance().put(Constant.DIALY_LAST_COLOR, color);
     }
 
     @Override
@@ -163,7 +172,7 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     @Override
     public void onPageSelected(int position) {
-        L.e("---onPageSelected"+position);
+        L.e("---onPageSelected" + position);
         onAppPagerChange(position);
         tvNiceTitle.setVisibility((position == 0 || position == 1) ? View.VISIBLE : View.GONE);
         llDate.setVisibility((position == 0 || position == 1) ? View.GONE : View.VISIBLE);

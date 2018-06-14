@@ -1,9 +1,11 @@
 package com.jogger.beautifulapp.http;
 
+import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.entity.AppInfoData;
+import com.jogger.beautifulapp.entity.AppMediaArticleData;
+import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
-import com.jogger.beautifulapp.entity.MediaArticle;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -47,11 +49,24 @@ public interface RequestService {
 
     //发现周边头部
     @GET("v3/mediaarticles/top")
-    Observable<HttpResult<MediaArticle>> getFindRoundTopDatas(@Query("platform") int platform);
+    Observable<HttpResult<AppMediaArticleData>> getFindRoundTopDatas(@Query("platform") int
+                                                                             platform);
 
     //发现周边
     @GET("v3/mediaarticles/all")
-    Observable<HttpResult<MediaArticle>> getFindRoundDatas(@Query("pos") int page,
-                                                           @Query("page_size") int page_size,
-                                                           @Query("platform") int platform);
+    Observable<HttpResult<AppMediaArticleData>> getFindRoundDatas(@Query("page") int page,
+                                                                  @Query("page_size") int page_size,
+                                                                  @Query("platform") int platform);
+
+    //发现合辑
+    @GET("v2/albums")
+    Observable<HttpResult<AppCompilationsData>> getFindCompilationsDatas(@Query("page") int page,
+                                                                         @Query("page_size") int
+                                                                                 page_size,
+                                                                         @Query("platform") int
+                                                                                 platform);
+
+    //发现美友
+    @GET("community/rank/users/")
+    Observable<HttpResult<AppNiceFriendData>> getFindNiceFriendDatas();
 }

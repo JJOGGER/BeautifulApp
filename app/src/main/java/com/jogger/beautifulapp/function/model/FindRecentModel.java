@@ -5,9 +5,6 @@ import com.jogger.beautifulapp.function.contract.FindRecentContract;
 import com.jogger.beautifulapp.http.HttpAction;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
-/**
- * Created by Jogger on 2018/6/13.
- */
 
 public class FindRecentModel implements FindRecentContract.Model {
     @Override

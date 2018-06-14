@@ -2,6 +2,7 @@ package com.jogger.beautifulapp.function.ui.activity;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseActivity;
+import com.jogger.beautifulapp.base.IPresenter;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -11,8 +12,8 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
-    protected void createPresenter() {
-
+    protected IPresenter createPresenter() {
+        return null;
     }
 
     @Override
