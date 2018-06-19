@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
+
+    <TextView
+        android:id="@+id/tv_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="1"
+        android:textColor="@color/gray_777777"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.jogger.beautifulapp.widget.CircleImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:border_color="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_no"
+        app:layout_constraintStart_toEndOf="@+id/tv_no"
+        app:layout_constraintTop_toTopOf="@+id/tv_no"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="title"
+        android:textColor="@color/black_333333"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_icon"/>
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingEnd="16dp"
+        android:text="susbtitle"
+        android:textColor="@color/black_454545"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+        app:layout_constraintEnd_toStartOf="@+id/tv_flowers"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <TextView
+        android:id="@+id/tv_flowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="2dp"
+        android:drawableTop="@mipmap/ranking_flower"
+        android:gravity="center_horizontal"
+        android:text="+7"
+        android:textColor="@color/black_454545"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

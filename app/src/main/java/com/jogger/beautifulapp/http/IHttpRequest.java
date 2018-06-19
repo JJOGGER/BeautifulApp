@@ -27,4 +27,22 @@ interface IHttpRequest<T> {
             listener);
 
     void getFindNiceFriendDatas(OnHttpRequestListener<T> listener);
+
+    void getUserRecommendDatas(int userId, int page, int page_size, int platform,
+                               OnHttpRequestListener<T>
+                                       listener);
+
+    void getUserCollectDatas(int userId, int page, int page_size, int platform,
+                             OnHttpRequestListener<T>
+                                     listener);
+
+    void getCategoryDatas(OnHttpRequestListener<T> listener);
+
+    void getGameDatas(String type, int page, int page_size, int platform,
+                      OnHttpRequestListener<T> listener);
+
+    void getRankDatas(int page, int page_size, int platform,
+                      OnHttpRequestListener<T> listener);
+
+    void getChoiceDescData(int id, OnHttpRequestListener<T> listener);
 }

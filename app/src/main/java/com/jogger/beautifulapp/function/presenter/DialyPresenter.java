@@ -32,6 +32,7 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
 
             @Override
             public void onSuccess(AppInfoData appData) {
+                if (mView == null) return;
                 mView.loadDatas(appData);
             }
         });

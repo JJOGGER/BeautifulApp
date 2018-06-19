@@ -1,10 +1,14 @@
 package com.jogger.beautifulapp.http;
 
+import com.jogger.beautifulapp.entity.AppCategoryData;
+import com.jogger.beautifulapp.entity.AppCollectData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
@@ -69,8 +73,53 @@ public class HttpAction extends BaseHttpAction {
         mHttpRequest.getFindCompilationsDatas(page, page_size, 2, listener);
     }
 
-    public  void getFindNiceFriendDatas(OnHttpRequestListener<AppNiceFriendData> listener){
+    public void getFindNiceFriendDatas(OnHttpRequestListener<AppNiceFriendData> listener) {
         mHttpRequest.getFindNiceFriendDatas(listener);
+    }
+
+    /**
+     * 美友推荐
+     */
+    public void getUserRecommendDatas(int userId, int page, int page_size,
+                                      OnHttpRequestListener<AppRecentData> listener) {
+        mHttpRequest.getUserRecommendDatas(userId, page, page_size, 2, listener);
+    }
+
+    /**
+     * 美友收藏
+     */
+    public void getUserCollectDatas(int userId, int page, int page_size,
+                                    OnHttpRequestListener<AppCollectData> listener) {
+        mHttpRequest.getUserCollectDatas(userId, page, page_size, 2, listener);
+    }
+
+    /**
+     * 精选分类
+     */
+    public void getCategoryDatas(OnHttpRequestListener<AppCategoryData> listener) {
+        mHttpRequest.getCategoryDatas(listener);
+    }
+
+    /**
+     * 游戏
+     */
+    public void getGameDatas(int page, int page_size, OnHttpRequestListener<AppInfoData> listener) {
+        mHttpRequest.getGameDatas("zuimei.daily", page, page_size, 2, listener);
+    }
+
+    /**
+     * 应用排行
+     */
+    public void getRankDatas(int page, int page_size, OnHttpRequestListener<AppSocialArticleData>
+            listener) {
+        mHttpRequest.getRankDatas(page, page_size, 2, listener);
+    }
+
+    /**
+     * 精选详情
+     */
+    public void getChoiceDescData(int id, OnHttpRequestListener<AppInfo> listener) {
+        mHttpRequest.getChoiceDescData(id, listener);
     }
 
     @Override

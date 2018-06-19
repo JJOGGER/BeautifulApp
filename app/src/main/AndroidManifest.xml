@@ -28,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".function.ui.activity.UserHomeActivity">
+        </activity>
+        <activity android:name=".function.ui.activity.FindChoiceDescActivity">
+        </activity>
     </application>
 
 </manifest>

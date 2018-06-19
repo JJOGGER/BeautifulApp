@@ -1,10 +1,14 @@
 package com.jogger.beautifulapp.http;
 
+import com.jogger.beautifulapp.entity.AppCategoryData;
+import com.jogger.beautifulapp.entity.AppCollectData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 
 import io.reactivex.Observable;
@@ -12,6 +16,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -69,4 +74,41 @@ public interface RequestService {
     //发现美友
     @GET("community/rank/users/")
     Observable<HttpResult<AppNiceFriendData>> getFindNiceFriendDatas();
+
+    //美友推荐
+    @GET("user/{id}/community/apps")
+    Observable<HttpResult<AppRecentData>> getUserRecommendDatas(@Path("id") int id,
+                                                                @Query("page") int page,
+                                                                @Query("page_size") int
+                                                                        page_size,
+                                                                @Query("platform") int
+                                                                        platform);
+
+    //美友收藏
+    @GET("collect/{id}/all/")
+    Observable<HttpResult<AppCollectData>> getUserCollectDatas(@Path("id") int id,
+                                                               @Query("page") int page,
+                                                               @Query("page_size") int
+                                                                       page_size,
+                                                               @Query("platform") int
+                                                                       platform);
+
+
+    //精选分类
+    @GET("navigation/all/app/top/")
+    Observable<HttpResult<AppCategoryData>> getCategoryDatas();
+
+    @GET("category/12/all/?type=zuimei.daily&page=1&page_size=20&platform=2")
+    Observable<HttpResult<AppInfoData>> getGameDatas(@Query("type") String type,
+                                                     @Query("page") int page,
+                                                     @Query("page_size") int page_size,
+                                                     @Query("platform") int platform);
+
+    @GET("api/v2/apps/rank/")
+    Observable<HttpResult<AppSocialArticleData>> getRankDatas(@Query("page") int page,
+                                                              @Query("page_size") int page_size,
+                                                              @Query("platform") int platform);
+
+    @GET("apps/app/{id}/")
+    Observable<HttpResult<AppInfo>> getChoiceDescData(@Path("id") int id);
 }

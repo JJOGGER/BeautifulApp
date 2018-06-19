@@ -23,6 +23,7 @@ dependencies {
     implementation rootProject.ext.dependencies.appcompatV7
     implementation rootProject.ext.dependencies.design
     implementation rootProject.ext.dependencies.constraintLayout
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation rootProject.ext.dependencies.junit
     androidTestImplementation rootProject.ext.dependencies.runner
     androidTestImplementation rootProject.ext.dependencies.espressoCore

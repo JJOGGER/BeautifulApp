@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -70,7 +71,7 @@
             <TextView
                 android:id="@+id/tv_flowers"
                 android:layout_width="60dp"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:layout_height="22dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"

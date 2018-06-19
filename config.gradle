@@ -15,7 +15,7 @@ ext {
 
     dependencies = [
             // ------------- Android -------------
-            constraintLayout       : "com.android.support.constraint:constraint-layout:1.1.1",
+            constraintLayout       : "com.android.support.constraint:constraint-layout:1.1.2",
             runner                 : "com.android.support.test:runner:1.0.2",
             espressoCore           : "com.android.support.test.espresso:espresso-core:3.0.2",
             supportV4              : "com.android.support:support-v4:${dependVersion.support}",
@@ -45,6 +45,7 @@ ext {
             photoview              : 'com.github.chrisbanes:PhotoView:1.2.6',
             photopicker            : 'me.iwf.photopicker:PhotoPicker:0.1.8',
             tinkerAndroidAnno      : 'com.tencent.tinker:tinker-android-anno:1.9.1',
-            tinker                 : 'com.tencent.tinker:tinker-android-lib:1.9.1'
+            tinker                 : 'com.tencent.tinker:tinker-android-lib:1.9.1',
+            swipebacklayout:"me.imid.swipebacklayout.lib:library:1.1.0"
     ]
 }

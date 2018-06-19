@@ -12,4 +12,33 @@
     <string name="around">周边</string>
     <string name="compilations">合辑</string>
     <string name="nice_friend">美友</string>
+    <string name="image">图像</string>
+    <string name="media">影音</string>
+    <string name="game">游戏</string>
+    <string name="life">生活</string>
+    <string name="news">资讯</string>
+    <string name="study">学习</string>
+    <string name="office">办公</string>
+    <string name="nice_produce">最美出品</string>
+    <string name="special">专题</string>
+    <string name="tool">工具</string>
+    <string name="beautify">美化</string>
+    <string name="social_contact">社交</string>
+    <string name="shopping">购物</string>
+
+    <string-array name="category_item">
+        <item>@string/special</item>
+        <item>@string/tool</item>
+        <item>@string/image</item>
+        <item>@string/media</item>
+        <item>@string/beautify</item>
+        <item>@string/game</item>
+        <item>@string/social_contact</item>
+        <item>@string/life</item>
+        <item>@string/news</item>
+        <item>@string/shopping</item>
+        <item>@string/study</item>
+        <item>@string/office</item>
+        <item>@string/nice_produce</item>
+    </string-array>
 </resources>

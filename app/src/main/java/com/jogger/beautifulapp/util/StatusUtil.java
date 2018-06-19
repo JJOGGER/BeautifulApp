@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.jogger.beautifulapp.R;
 
-/**
- * Created by it on 2017/2/21.
- */
 
 public class StatusUtil {
     public static void immersive(Activity activity, int immersiveColor) {
@@ -20,6 +18,13 @@ public class StatusUtil {
             window.setStatusBarColor(immersiveColor);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        View view = activity.findViewById(R.id.immersive);
+        if (view != null) {
+            int statusHeight =getStatusHeight();
+            if (statusHeight != -1) {
+                view.setPadding(0, statusHeight, 0, 0);
+            }
         }
     }
 
@@ -47,5 +52,13 @@ public class StatusUtil {
             window.clearFlags(WindowManager.LayoutParams
                     .FLAG_FULLSCREEN);
         }
+    }
+
+    public static int getStatusHeight() {
+        int resid =Util.getApp().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resid > 0) {
+            return Util.getApp().getResources().getDimensionPixelSize(resid);//通过资源id获得资源所对应的值
+        }
+        return -1;
     }
 }

@@ -14,4 +14,15 @@
     <string name="tuesday">星期二</string>
     <string name="month">月</string>
     <string name="app_tags_format">#每日最美 #%s</string>
+    <string name="recommend">推荐</string>
+    <string name="collection">收藏</string>
+    <string name="recommend_format">推荐&#160;%d</string>
+    <string name="collection_format">收藏&#160;%d</string>
+    <string name="obtain_msg">总共获得</string>
+    <string name="choice_category">精选分类</string>
+    <string name="more">更多</string>
+    <string name="game_title_format">%s&#183;游戏</string>
+    <string name="social_share_rank">社区分享排行</string>
+    <string name="download">下载</string>
+    <string name="share">分享</string>
 </resources>

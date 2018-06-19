@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity">
+
+
+    <com.jogger.beautifulapp.widget.DescScrollView
+        android:id="@+id/nsv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/fl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.jogger.beautifulapp.widget.DescImageView
+                    android:id="@+id/iv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="185dp"
+                    android:layout_marginTop="12dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/detail_pic_shadow"/>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fl_title"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:includeFontPadding="false"
+                android:text="title"
+                android:textColor="@color/black_333333"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/iv_icon"
+                app:layout_constraintTop_toTopOf="@+id/iv_icon"/>
+
+            <TextView
+                android:id="@+id/tv_sub_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:paddingEnd="32dp"
+                android:text="subtitle"
+                android:textColor="@color/gray_777777"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_collection_roll"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@null"
+                android:src="@drawable/detail_collection_roll_selector"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon"
+                app:layout_constraintVertical_bias="0.0"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_share_roll"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="128dp"
+                android:background="@null"
+                android:src="@drawable/detail_share_roll_selector"
+                app:layout_constraintBottom_toBottomOf="@+id/ibtn_collection_roll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ibtn_collection_roll"
+                app:layout_constraintVertical_bias="0.0"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_download_roll"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="224dp"
+                android:background="@null"
+                android:src="@drawable/detail_download_roll_selector"
+                app:layout_constraintBottom_toBottomOf="@+id/ibtn_share_roll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ibtn_share_roll"
+                app:layout_constraintVertical_bias="0.0"/>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="3dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:textColor="@color/black_454545"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ibtn_collection_roll"/>
+
+            <TextView
+                android:id="@+id/tv_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/collection"
+                android:textColor="@color/black_333333"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ibtn_collection_roll"
+                app:layout_constraintStart_toEndOf="@+id/ibtn_collection_roll"
+                app:layout_constraintTop_toTopOf="@+id/ibtn_collection_roll"/>
+
+            <TextView
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/share"
+                android:textColor="@color/black_333333"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ibtn_share_roll"
+                app:layout_constraintStart_toEndOf="@+id/ibtn_share_roll"
+                app:layout_constraintTop_toTopOf="@+id/ibtn_share_roll"/>
+
+            <TextView
+                android:id="@+id/tv_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/download"
+                android:textColor="@color/black_333333"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ibtn_download_roll"
+                app:layout_constraintStart_toEndOf="@+id/ibtn_download_roll"
+                app:layout_constraintTop_toTopOf="@+id/ibtn_download_roll"/>
+        </android.support.constraint.ConstraintLayout>
+    </com.jogger.beautifulapp.widget.DescScrollView>
+
+    <FrameLayout
+        android:id="@+id/fl_top_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/ibtn_return"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:src="@drawable/return_selector"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_collection"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="68dp"
+            android:background="@null"
+            android:src="@drawable/detail_collection_roll_selector"
+            android:visibility="invisible"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_share"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="128dp"
+            android:src="@drawable/detail_share_roll_selector"
+            android:visibility="invisible"/>
+
+        <ImageButton
+            android:id="@+id/ibtn_download"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="188dp"
+            android:src="@drawable/detail_download_roll_selector"
+            android:visibility="invisible"/>
+    </FrameLayout>
+
+    <include layout="@layout/include_bottom_layout"/>
+</RelativeLayout>

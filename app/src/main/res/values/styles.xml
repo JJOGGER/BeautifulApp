@@ -13,4 +13,21 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="UserTabTextStyle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="UserTabTextStyle2">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SwipeBackLayout">
+        <item name="edge_size">50dip</item>
+        <item name="shadow_left">@drawable/shadow_left</item>
+        <item name="shadow_right">@drawable/shadow_right</item>
+        <item name="shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
+
 </resources>

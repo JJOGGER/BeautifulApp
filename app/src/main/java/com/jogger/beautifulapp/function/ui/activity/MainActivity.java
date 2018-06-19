@@ -100,8 +100,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 break;
             case R.id.tv_games:
                 showFragment(GamesFragment.class);
-                smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-                clMain.setBackgroundColor(getResources().getColor(R.color.colorFind));
+                smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,getResources().getColor(R.color.colorAccent)));
                 break;
             case R.id.tv_rank:
                 showFragment(RankFragment.class);

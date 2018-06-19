@@ -450,7 +450,7 @@ public class AppInfo implements Serializable {
         this.package_name = package_name;
     }
 
-    class Info implements Serializable {
+   public class Info implements Serializable {
         private List<String> up_users;
         private List<String> fav_users;
         private String fav;

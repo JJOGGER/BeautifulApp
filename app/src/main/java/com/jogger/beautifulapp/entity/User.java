@@ -4,6 +4,7 @@ package com.jogger.beautifulapp.entity;
 import java.io.Serializable;
 
 public class User implements Serializable{
+    private String name;
     private String userName;
     private String career;
     private String bg_color;
@@ -12,6 +13,14 @@ public class User implements Serializable{
     private String flowers;
     private int id;
     private String ename;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUserName() {
         return userName;

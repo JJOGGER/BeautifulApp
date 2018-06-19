@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jogger.beautifulapp.entity.AppCategoryData;
+import com.jogger.beautifulapp.entity.AppCollectData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
@@ -97,6 +101,53 @@ class HttpRequestImp implements IHttpRequest {
         Observable<HttpResult<AppNiceFriendData>> getFindNiceFriendDatas = mRequestService
                 .getFindNiceFriendDatas();
         enqueue(getFindNiceFriendDatas, listener);
+    }
+
+    @Override
+    public void getUserRecommendDatas(int userId, int page, int page_size, int platform,
+                                      OnHttpRequestListener listener) {
+        Observable<HttpResult<AppRecentData>> getUserRecommendDatas = mRequestService
+                .getUserRecommendDatas
+                        (userId, page, page_size, platform);
+        enqueue(getUserRecommendDatas, listener);
+    }
+
+    @Override
+    public void getUserCollectDatas(int userId, int page, int page_size, int platform,
+                                    OnHttpRequestListener listener) {
+        Observable<HttpResult<AppCollectData>> getUserCollectDatas = mRequestService
+                .getUserCollectDatas(userId, page, page_size, platform);
+        enqueue(getUserCollectDatas, listener);
+    }
+
+    @Override
+    public void getCategoryDatas(OnHttpRequestListener listener) {
+        Observable<HttpResult<AppCategoryData>> getCategoryDatas = mRequestService
+                .getCategoryDatas();
+        enqueue(getCategoryDatas, listener);
+    }
+
+    @Override
+    public void getGameDatas(String type, int page, int page_size, int platform,
+                             OnHttpRequestListener listener) {
+        Observable<HttpResult<AppInfoData>> getGameDatas = mRequestService
+                .getGameDatas(type, page, page_size, platform);
+        enqueue(getGameDatas, listener);
+    }
+
+    @Override
+    public void getRankDatas(int page, int page_size, int platform, OnHttpRequestListener
+            listener) {
+        Observable<HttpResult<AppSocialArticleData>> getRankDatas = mRequestService
+                .getRankDatas(page, page_size, platform);
+        enqueue(getRankDatas, listener);
+    }
+
+    @Override
+    public void getChoiceDescData(int id, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppInfo>> getChoiceDescData = mRequestService
+                .getChoiceDescData(id);
+        enqueue(getChoiceDescData, listener);
     }
 
     /**

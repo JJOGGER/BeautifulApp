@@ -11,12 +11,13 @@ import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.function.contract.DialyPagerContract;
+import com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class DialiyPageFragment extends BaseFragment implements DialyPagerContract.View {
-
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_sub_title)
@@ -27,6 +28,7 @@ public class DialiyPageFragment extends BaseFragment implements DialyPagerContra
     TextView tvDesc;
     @BindView(R.id.tv_flowers)
     TextView tvFlowers;
+    private AppInfo mAppInfo;
 
     @Override
     public int getLayoutId() {
@@ -37,20 +39,25 @@ public class DialiyPageFragment extends BaseFragment implements DialyPagerContra
     public void init() {
         Bundle arguments = getArguments();
         if (arguments == null) return;
-        AppInfo appInfo = (AppInfo) arguments.getSerializable(Constant.APP_INFO);
-        if (appInfo == null) return;
-        tvTitle.setText(appInfo.getTitle());
-        tvSubTitle.setText(appInfo.getSub_title());
-        tvDesc.setText(appInfo.getDigest());
+        mAppInfo = (AppInfo) arguments.getSerializable(Constant.APP_INFO);
+        if (mAppInfo == null) return;
+        tvTitle.setText(mAppInfo.getTitle());
+        tvSubTitle.setText(mAppInfo.getSub_title());
+        tvDesc.setText(mAppInfo.getDigest());
         Glide.with(mActivity)
-                .load(appInfo.getCover_image())
+                .load(mAppInfo.getCover_image())
                 .into(ivContent);
-        tvFlowers.setText(String.valueOf(appInfo.getPrice()));
+        tvFlowers.setText(String.valueOf(mAppInfo.getInfo().getUp()));
     }
 
     @Override
     protected IPresenter createPresenter() {
         return null;
+    }
+
+    @OnClick(R.id.cl_main)
+    public void onClick(){
+        startNewActivity(FindChoiceDescActivity.class,Constant.ID,mAppInfo.getId());
     }
 
 }

@@ -14,4 +14,12 @@ public class SizeUtil {
         final float scale = Util.getApp().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
+
+    public static int getScreenWidth() {
+        return Util.getApp().getResources().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Util.getApp().getResources().getDisplayMetrics().heightPixels;
+    }
 }

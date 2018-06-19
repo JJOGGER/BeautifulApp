@@ -11,13 +11,13 @@ import android.view.View;
 
 /**
  * Created by Jogger on 2017/5/2.
- * linear布局分割线中间条目有padding
+ * linear布局分割线
  */
 
 public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
-    private static final int PADDING = 32;
+    private static int PADDING = 2;
 
     public DividerLinearItemDecoration(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
@@ -36,29 +36,14 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
         int top;
         int bottom;
         final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount - 1; i++) {
             View child = parent.getChildAt(i);
             RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
-            if (i == 0) {
-                top = child.getTop() - params.topMargin;
-                bottom = top + mDivider.getIntrinsicHeight();
-                left = 0;
-                right = parent.getWidth();
-                mDivider.setBounds(left, top, right, bottom);
-                mDivider.draw(c);
-            }
-            if (i == childCount - 1) {
-                top = child.getBottom() + params.bottomMargin;
-                bottom = top + mDivider.getIntrinsicHeight();
-                left = 0;
-                right = parent.getWidth();
-            } else {
-                top = child.getBottom() + params.bottomMargin;
-                bottom = top + mDivider.getIntrinsicHeight();
-                left = PADDING;
-                right = parent.getWidth() - PADDING;
-            }
+            top = child.getBottom() + params.bottomMargin;
+            bottom = top + mDivider.getIntrinsicHeight();
+            left = PADDING;
+            right = parent.getWidth() - PADDING;
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
         }
@@ -85,20 +70,12 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, int itemPosition,
-                               RecyclerView parent) {
-        int childCount = parent.getAdapter().getItemCount();
-        int spanCount = getSpanCount(parent);
-//        if (isfirstRow(parent, itemPosition, getSpanCount(parent), childCount)) {
-//            outRect.set(mDivider.getIntrinsicHeight(), 0, mDivider.getIntrinsicWidth(), 0);
-//        } else {
-        outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-//        }
-//        if (isFirstBottom(parent, itemPosition, childCount))// 如果是最后一行，则不需要绘制底部
-//        {
-//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-//        } else {
-//            outRect.set(PADDING, 0, mDivider.getIntrinsicWidth() - PADDING, 0);
-//        }
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
+            state) {
+        int itemCount = parent.getAdapter().getItemCount();
+        int position = parent.getChildAdapterPosition(view);
+        if (position >= 0 && position < itemCount - 1) {
+            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+        }
     }
 }
