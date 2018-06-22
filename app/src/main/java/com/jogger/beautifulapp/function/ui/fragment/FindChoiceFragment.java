@@ -1,21 +1,19 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
+import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
 import com.jogger.beautifulapp.constant.Constant;
-import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.function.adapter.FindChoiceAdapter;
 import com.jogger.beautifulapp.function.contract.FindChoiceContract;
 import com.jogger.beautifulapp.function.presenter.FindChoicePresenter;
 import com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,10 +24,12 @@ import butterknife.BindView;
  */
 
 public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implements
-        FindChoiceContract.View, BaseQuickAdapter.OnItemClickListener {
+        FindChoiceContract.View, BaseQuickAdapter.OnItemClickListener,
+        RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.rv_content)
-    RecyclerView rvContent;
+    RefreshRecyclerView rvContent;
     private FindChoiceAdapter mAdapter;
+    private boolean mIsLoading;
 
     @Override
     public int getLayoutId() {
@@ -41,7 +41,9 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
         mAdapter = new FindChoiceAdapter(null);
         rvContent.setAdapter(mAdapter);
-        mPresenter.getFindChoiceDatas(String.valueOf(0));
+        rvContent.setOnRefreshListener(this);
+        mAdapter.setOnLoadMoreListener(this,rvContent);
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -50,13 +52,27 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
     }
 
     @Override
-    public void loadDatas(FindChoiceData findChoiceData) {
-        List<MediaArticle> mediaArticles = new ArrayList<>();
-        for (int i = 0; i < findChoiceData.getContent().size(); i++) {
-            mediaArticles.add(findChoiceData.getContent().get(i).getApps().get(0));
-        }
+    public void loadData() {
+        mPresenter.getFindChoiceDatas();
+    }
+
+    @Override
+    public void getFindChoiceDatasSuccess(List<MediaArticle> mediaArticles) {
         mAdapter.setNewData(mediaArticles);
-        mAdapter.setOnItemClickListener(this);
+        rvContent.onStopRefresh();
+    }
+
+    @Override
+    public void getMoreDatasSuccess(List<MediaArticle> mediaArticles) {
+        mAdapter.addData(mediaArticles);
+        mAdapter.loadMoreComplete();
+        mIsLoading = false;
+    }
+
+    @Override
+    public void getMoreDatasFail() {
+        mIsLoading = false;
+        mAdapter.loadMoreFail();
     }
 
     @Override
@@ -64,5 +80,23 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
         MediaArticle article = (MediaArticle) adapter.getItem(position);
         if (article == null) return;
         startNewActivity(FindChoiceDescActivity.class, Constant.ID, article.getId());
+    }
+
+    @Override
+    public void onRefresh() {
+        loadData();
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (mIsLoading)
+            return;
+        mIsLoading = true;
+        rvContent.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mPresenter.getMoreDatas();
+            }
+        }, 100);
     }
 }

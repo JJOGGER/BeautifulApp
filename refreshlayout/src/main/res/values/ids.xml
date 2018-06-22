@@ -4,4 +4,5 @@
     <item type="id" name="webview" />
     <item type="id" name="scrollview" />
     <item type="id" name="viewpager" />
+    <item type="id" name="recyclerview" />
 </resources>

@@ -4,8 +4,11 @@ package com.jogger.beautifulapp.function.contract;
 import com.jogger.beautifulapp.base.BaseModel;
 import com.jogger.beautifulapp.base.BaseView;
 import com.jogger.beautifulapp.base.IPresenter;
+import com.jogger.beautifulapp.entity.Album;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+
+import java.util.List;
 
 public interface FindCompilationsContract {
     interface Model extends BaseModel {
@@ -14,10 +17,16 @@ public interface FindCompilationsContract {
     }
 
     interface View extends BaseView {
-        void loadDatas(AppCompilationsData appData);
+        void getFindCompilationsDatasSuccess(List<Album> albums);
+
+        void getMoreDatasSuccess(List<Album> albums);
+
+        void getMoreDatasFail();
     }
 
     interface Presenter extends IPresenter<View, Model> {
-        void getFindCompilationsDatas(int page, int page_size);
+        void getFindCompilationsDatas();
+
+        void getMoreDatas();
     }
 }

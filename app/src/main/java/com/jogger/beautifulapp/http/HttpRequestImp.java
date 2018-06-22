@@ -58,7 +58,7 @@ class HttpRequestImp implements IHttpRequest {
     }
 
     @Override
-    public void getFindRecentDatas(int page, int page_size, int platform, OnHttpRequestListener
+    public void getFindRecentDatas(long page, int page_size, int platform, OnHttpRequestListener
             listener) {
         Observable<HttpResult<AppRecentData>> getRecentDatas = mRequestService.getFindRecentDatas
                 (page,

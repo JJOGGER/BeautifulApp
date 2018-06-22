@@ -20,6 +20,10 @@ import com.jogger.beautifulapp.function.ui.fragment.GamesFragment;
 import com.jogger.beautifulapp.function.ui.fragment.RankFragment;
 import com.jogger.beautifulapp.util.L;
 import com.jogger.beautifulapp.util.SPUtil;
+import com.jogger.beautifulapp.util.T;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,6 +45,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     View vRank;
     private FragmentManager mFragmentManager;
     private Fragment mShowFragment;
+    private ExitTimerTask mExitTimerTask;
+    private Timer mExitTimer;
+    private boolean mIsExit;
 
     @Override
     public int getLayoutId() {
@@ -90,8 +97,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.tv_dialy:
                 showFragment(DialyFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-                L.e("---------DIALY_LAST_COLOR"+SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR));
-                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,getResources().getColor(R.color.colorAccent)));
+                L.e("---------DIALY_LAST_COLOR" + SPUtil.getInstance().getInt(Constant
+                        .DIALY_LAST_COLOR));
+                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,
+                        getResources().getColor(R.color.colorAccent)));
                 break;
             case R.id.tv_category:
                 showFragment(CategoryFragment.class);
@@ -101,7 +110,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.tv_games:
                 showFragment(GamesFragment.class);
                 smMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,getResources().getColor(R.color.colorAccent)));
+                clMain.setBackgroundColor(SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR,
+                        getResources().getColor(R.color.colorAccent)));
                 break;
             case R.id.tv_rank:
                 showFragment(RankFragment.class);
@@ -110,6 +120,26 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 break;
         }
         smMenu.toggle();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!smMenu.isMenuShowing())
+            smMenu.toggle();
+        else {
+            if (mExitTimer == null) {
+                mExitTimer = new Timer();
+                mExitTimerTask = new ExitTimerTask();
+            }
+            L.e("----------mIsExit:" + mIsExit);
+            if (!mIsExit) {
+                mIsExit = true;
+                T.show(R.string.exit_msg);
+                mExitTimer.schedule(mExitTimerTask, 1000);
+            } else {
+                finish();
+            }
+        }
     }
 
     /**
@@ -184,6 +214,32 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 vRank.setVisibility(View.VISIBLE);
                 vFind.setVisibility(View.INVISIBLE);
                 break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mExitTimer != null) {
+            mExitTimer.cancel();
+            mExitTimer = null;
+        }
+        if (mExitTimerTask != null) {
+            mExitTimerTask.cancel();
+            mExitTimerTask = null;
+        }
+
+    }
+
+    private class ExitTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            mIsExit = false;
+            L.e("----------ExitTimerTask:" + mIsExit);
+            mExitTimer.cancel();
+            mExitTimerTask.cancel();
+            mExitTimer = null;
+            mExitTimerTask = null;
         }
     }
 }

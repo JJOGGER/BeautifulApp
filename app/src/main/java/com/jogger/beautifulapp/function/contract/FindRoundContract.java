@@ -4,7 +4,10 @@ import com.jogger.beautifulapp.base.BaseModel;
 import com.jogger.beautifulapp.base.BaseView;
 import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
+import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+
+import java.util.List;
 
 
 public interface FindRoundContract {
@@ -16,13 +19,20 @@ public interface FindRoundContract {
     }
 
     interface View extends BaseView {
-        void loadTopDatas(AppMediaArticleData appMediaArticleData);
-        void loadDatas(AppMediaArticleData appMediaArticleData);
+        void getFindRoundTopDatasSuccess(List<MediaArticle> mediaArticles);
+
+        void getFindRoundDatasSuccess(List<MediaArticle> mediaArticles);
+
+        void getMoreDatasSuccess(List<MediaArticle> mediaArticles);
+
+        void getMoreDatasFail();
     }
 
     interface Presenter extends IPresenter<View, Model> {
         void getFindRoundTopDatas();
 
-        void getFindRoundDatas(int page, int page_size);
+        void getFindRoundDatas();
+
+        void getMoreDatas();
     }
 }

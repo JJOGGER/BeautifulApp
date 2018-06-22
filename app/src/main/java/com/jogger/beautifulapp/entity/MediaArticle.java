@@ -16,6 +16,7 @@ public class MediaArticle implements Serializable {
     private int id;
     private String digest;
     private List<String> tags;
+    private String date;
 
     public String getTitle() {
         return title;
@@ -103,6 +104,14 @@ public class MediaArticle implements Serializable {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

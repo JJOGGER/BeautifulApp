@@ -7,8 +7,10 @@ import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 
 public class FindRecentModel implements FindRecentContract.Model {
+
     @Override
-    public void getRecentDatas(int page, int pageSize, OnHttpRequestListener<AppRecentData> listener) {
+    public void getRecentDatas(long page, int pageSize, OnHttpRequestListener<AppRecentData>
+            listener) {
         HttpAction.getHttpAction().getFindRecentDatas(page, pageSize, listener);
     }
 }

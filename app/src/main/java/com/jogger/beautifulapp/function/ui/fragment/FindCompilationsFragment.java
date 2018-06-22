@@ -1,16 +1,18 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
-import android.support.v7.widget.RecyclerView;
-
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyGridLayoutManager;
 import com.jogger.beautifulapp.base.recyclerview.SpaceItemDecoration;
-import com.jogger.beautifulapp.entity.AppCompilationsData;
+import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.entity.Album;
 import com.jogger.beautifulapp.function.adapter.FindCompilationsAdapter;
 import com.jogger.beautifulapp.function.contract.FindCompilationsContract;
 import com.jogger.beautifulapp.function.presenter.FindCompilationsPresenter;
 import com.jogger.beautifulapp.util.SizeUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -19,10 +21,12 @@ import butterknife.BindView;
  */
 
 public class FindCompilationsFragment extends BaseFragment<FindCompilationsPresenter> implements
-        FindCompilationsContract.View {
+        FindCompilationsContract.View, RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter
+        .RequestLoadMoreListener {
     @BindView(R.id.rv_content)
-    RecyclerView rvContent;
+    RefreshRecyclerView rvContent;
     private FindCompilationsAdapter mAdapter;
+    private boolean mIsLoading;
 
     @Override
     public int getLayoutId() {
@@ -33,9 +37,15 @@ public class FindCompilationsFragment extends BaseFragment<FindCompilationsPrese
     public void init() {
         rvContent.setLayoutManager(new MyGridLayoutManager(mActivity, 2));
         rvContent.addItemDecoration(new SpaceItemDecoration(SizeUtil.dp2px(5)));
-        mPresenter.getFindCompilationsDatas(1, 20);
         mAdapter = new FindCompilationsAdapter(null);
+        rvContent.setOnRefreshListener(this);
         rvContent.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(this, rvContent);
+    }
+
+    @Override
+    public void loadData() {
+        mPresenter.getFindCompilationsDatas();
     }
 
     @Override
@@ -44,7 +54,41 @@ public class FindCompilationsFragment extends BaseFragment<FindCompilationsPrese
     }
 
     @Override
-    public void loadDatas(AppCompilationsData appData) {
-        mAdapter.setNewData(appData.getAlbums());
+    public void onRefresh() {
+        loadData();
+    }
+
+    @Override
+    public void getFindCompilationsDatasSuccess(List<Album> albums) {
+        mAdapter.setNewData(albums);
+        rvContent.onStopRefresh();
+    }
+
+    @Override
+    public void getMoreDatasSuccess(List<Album> albums) {
+        mAdapter.addData(albums);
+        mIsLoading = false;
+        mAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void getMoreDatasFail() {
+        mAdapter.loadMoreFail();
+        mIsLoading = false;
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (mIsLoading)
+            return;
+        mIsLoading = true;
+        rvContent.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mPresenter.isHasNext())
+                    mPresenter.getMoreDatas();
+                else mAdapter.loadMoreEnd();
+            }
+        }, 100);
     }
 }

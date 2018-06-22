@@ -1,14 +1,16 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
-import android.support.v7.widget.RecyclerView;
-
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
-import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.entity.RecentAppData;
 import com.jogger.beautifulapp.function.adapter.FindRecentAdapter;
 import com.jogger.beautifulapp.function.contract.FindRecentContract;
 import com.jogger.beautifulapp.function.presenter.FindRecentPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -17,10 +19,12 @@ import butterknife.BindView;
  */
 
 public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implements
-        FindRecentContract.View {
+        FindRecentContract.View, RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter
+        .RequestLoadMoreListener {
     @BindView(R.id.rv_content)
-    RecyclerView rvContent;
+    RefreshRecyclerView rvContent;
     private FindRecentAdapter mAdapter;
+    private boolean mIsLoading;
 
     @Override
     public int getLayoutId() {
@@ -32,7 +36,8 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
         mAdapter = new FindRecentAdapter(null);
         rvContent.setAdapter(mAdapter);
-        mPresenter.getRecentDatas(-1, 20);
+        rvContent.setOnRefreshListener(this);
+        mAdapter.setOnLoadMoreListener(this,rvContent);
     }
 
     @Override
@@ -40,8 +45,48 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
         return new FindRecentPresenter();
     }
 
+
     @Override
-    public void loadDatas(AppRecentData appData) {
-        mAdapter.setNewData(appData.getApps());
+    public void loadData() {
+        mPresenter.getRecentDatas();
+    }
+
+    @Override
+    public void onRefresh() {
+        loadData();
+    }
+
+    @Override
+    public void getRecentDatasSuccess(List<RecentAppData> recentAppDatas) {
+        mAdapter.setNewData(recentAppDatas);
+        rvContent.onStopRefresh();
+    }
+
+    @Override
+    public void getMoreDatasSuccess(List<RecentAppData> recentAppDatas) {
+        mAdapter.addData(recentAppDatas);
+        mIsLoading = false;
+        mAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void getMoreDatasFail() {
+        mAdapter.loadMoreFail();
+        mIsLoading = false;
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        if (mIsLoading)
+            return;
+        mIsLoading = true;
+        rvContent.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mPresenter.isHasNext())
+                    mPresenter.getMoreDatas();
+                else mAdapter.loadMoreEnd();
+            }
+        }, 100);
     }
 }

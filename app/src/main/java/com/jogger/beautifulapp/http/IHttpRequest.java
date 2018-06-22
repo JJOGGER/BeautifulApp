@@ -13,7 +13,7 @@ interface IHttpRequest<T> {
 
     void getDialyDatas(int page, int page_size, int platform, OnHttpRequestListener<T> listener);
 
-    void getFindRecentDatas(int page, int page_size, int platform, OnHttpRequestListener<T>
+    void getFindRecentDatas(long page, int page_size, int platform, OnHttpRequestListener<T>
             listener);
 
     void getFindChoiceDatas(String startDate, int platform, OnHttpRequestListener<T> listener);

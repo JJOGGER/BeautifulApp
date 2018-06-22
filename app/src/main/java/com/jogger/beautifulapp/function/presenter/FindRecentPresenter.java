@@ -10,10 +10,19 @@ import com.jogger.beautifulapp.util.L;
 
 public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
         FindRecentContract.Model> implements FindRecentContract.Presenter {
+    private long mPage = -1;
+    private int mPageSize = 20;
+    private boolean mHasNext;
+    private long mLastPos;
+
+    public boolean isHasNext() {
+        return mHasNext;
+    }
 
     @Override
-    public void getRecentDatas(int page, int pageSize) {
-        mModle.getRecentDatas(page, pageSize, new OnHttpRequestListener<AppRecentData>() {
+    public void getRecentDatas() {
+        mPage = -1;
+        mModle.getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("--------errorCode:" + errorCode);
@@ -21,8 +30,30 @@ public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
 
             @Override
             public void onSuccess(AppRecentData appData) {
+                if (mView == null || appData == null || appData.getApps() == null) return;
+                mHasNext = appData.getHas_next() == 1;
+                mView.getRecentDatasSuccess(appData.getApps());
+                mLastPos = appData.getApps().get(appData.getApps().size() - 1).getPos();
+            }
+        });
+    }
+
+    @Override
+    public void getMoreDatas() {
+        mPage = mLastPos;
+        mModle.getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
+            @Override
+            public void onFailure(int errorCode) {
+                L.e("--------errorCode:" + errorCode);
                 if (mView == null) return;
-                mView.loadDatas(appData);
+                mView.getMoreDatasFail();
+            }
+
+            @Override
+            public void onSuccess(AppRecentData appData) {
+                if (mView == null) return;
+                mHasNext = appData.getHas_next() == 1;
+                mView.getMoreDatasSuccess(appData.getApps());
             }
         });
     }

@@ -193,7 +193,6 @@ public class GamesFragment extends BaseFragment<GamePresenter> implements GameCo
         //执行颜色转换动画
         AnimatorUtil.showBackgroundColorAnimation(((MainActivity) mActivity).getBaseContainer(),
                 mPreColor, color, 400);
-        L.e("----------onAppPagerChange");
         setBgColor(color);
     }
 

@@ -1,14 +1,15 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
-import com.jogger.beautifulapp.entity.AppNiceFriendData;
+import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.entity.UsersRank;
 import com.jogger.beautifulapp.function.adapter.FindNiceFriendAdapter;
 import com.jogger.beautifulapp.function.contract.FindNiceFriendContract;
 import com.jogger.beautifulapp.function.presenter.FindNiceFriendPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -17,10 +18,11 @@ import butterknife.BindView;
  */
 
 public class FindNiceFriendFragment extends BaseFragment<FindNiceFriendPresenter> implements
-        FindNiceFriendContract.View {
+        FindNiceFriendContract.View,RefreshRecyclerView.OnRefreshListener {
     @BindView(R.id.rv_content)
-    RecyclerView rvContent;
+    RefreshRecyclerView rvContent;
     private FindNiceFriendAdapter mAdapter;
+    private boolean mIsLoading;
 
     @Override
     public int getLayoutId() {
@@ -32,16 +34,28 @@ public class FindNiceFriendFragment extends BaseFragment<FindNiceFriendPresenter
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
         mAdapter = new FindNiceFriendAdapter(null);
         rvContent.setAdapter(mAdapter);
+        rvContent.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void loadData() {
         mPresenter.getFindNickFriendDatas();
     }
 
     @Override
-    public void loadDatas(AppNiceFriendData appData) {
-        mAdapter.setNewData(appData.getUsers_rank());
+    public void getFindNiceFriendDatasSuccess(List<UsersRank> usersRanks) {
+        mAdapter.setNewData(usersRanks);
+        rvContent.onStopRefresh();
     }
 
     @Override
     protected FindNiceFriendPresenter createPresenter() {
         return new FindNiceFriendPresenter();
     }
+
+    @Override
+    public void onRefresh() {
+        loadData();
+    }
+
 }

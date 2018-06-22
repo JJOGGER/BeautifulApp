@@ -26,10 +26,10 @@ public class FindNiceFriendPresenter extends BasePresenter<FindNiceFriendContrac
 
             @Override
             public void onSuccess(AppNiceFriendData appNiceFriendData) {
-                L.e("----appNiceFriendData:"+appNiceFriendData);
                 if (mView == null) return;
-                mView.loadDatas(appNiceFriendData);
+                mView.getFindNiceFriendDatasSuccess(appNiceFriendData.getUsers_rank());
             }
         });
     }
+
 }

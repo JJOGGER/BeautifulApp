@@ -56,7 +56,7 @@ public class FindChoiceDescActivity extends SwipeBackActivity<ChoiceDescPresente
     TextView tvShare;
     @BindView(R.id.tv_download)
     TextView tvDownload;
-    private int mShowY;//设置隐藏动画的按钮所处位置
+    private int mShowY = -1;//设置隐藏动画的按钮所处位置
     private int mOffsetY;//偏移动画距离
 
     @Override
@@ -75,8 +75,9 @@ public class FindChoiceDescActivity extends SwipeBackActivity<ChoiceDescPresente
         int[] postion = new int[2];
         ibtnCollectionRoll.getLocationOnScreen(postion);
         //隐藏位置：scrollview中按钮y-头部位置bottom+头部位置高度一半
-        mShowY = postion[1] - flTopContainer.getBottom() + flTopContainer
-                .getMeasuredHeight() / 2;
+        if (mShowY == -1)
+            mShowY = postion[1] - flTopContainer.getBottom() + flTopContainer
+                    .getMeasuredHeight() / 2;
     }
 
     @Override
@@ -145,7 +146,7 @@ public class FindChoiceDescActivity extends SwipeBackActivity<ChoiceDescPresente
     @Override
     public void onScrollY(int scrollY) {
         if (scrollY >= mShowY) {
-            L.e("----------此处隐藏动画" + scrollY);
+            L.e("----------此处隐藏动画" + scrollY + "--<" + mShowY);
 //            int offsetX = ibtnCollection.getLeft() - ibtnCollectionRoll
 //                    .getLeft();
 //            int offsetY = ibtnCollection.getMeasuredHeight() / 2;

@@ -4,7 +4,10 @@ import com.jogger.beautifulapp.base.BaseModel;
 import com.jogger.beautifulapp.base.BaseView;
 import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.entity.FindChoiceData;
+import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+
+import java.util.List;
 
 /**
  * Created by Jogger on 2018/6/12.
@@ -16,10 +19,16 @@ public interface FindChoiceContract {
     }
 
     interface View extends BaseView {
-        void loadDatas(FindChoiceData appData);
+        void getFindChoiceDatasSuccess(List<MediaArticle> appData);
+
+        void getMoreDatasSuccess(List<MediaArticle> appData);
+
+        void getMoreDatasFail();
     }
 
     interface Presenter extends IPresenter<View, Model> {
-        void getFindChoiceDatas(String startDate);
+        void getFindChoiceDatas();
+
+        void getMoreDatas();
     }
 }

@@ -22,10 +22,11 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
             state) {
         int position = parent.getChildLayoutPosition(view);
-        if (position == 0 || position == 1) {
+        //rcyclerview有头布局
+        if (position == 1 || position == 2) {
             outRect.top = SizeUtil.dp2px(12);
         }
-        if (position % 2 == 0) {//第一列数据设置right
+        if (position % 2 == 1) {//第一列数据设置right
             outRect.right = space;
         }
     }

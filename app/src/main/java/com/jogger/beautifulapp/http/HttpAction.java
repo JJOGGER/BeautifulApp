@@ -48,7 +48,7 @@ public class HttpAction extends BaseHttpAction {
     /**
      * 发现最近
      */
-    public void getFindRecentDatas(int page, int page_size,
+    public void getFindRecentDatas(long page, int page_size,
                                    OnHttpRequestListener<AppRecentData> listener) {
         mHttpRequest.getFindRecentDatas(page, page_size, 2, listener);
     }

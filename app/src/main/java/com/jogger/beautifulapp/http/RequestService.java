@@ -48,7 +48,7 @@ public interface RequestService {
 
     //发现最新pos为-1时显示第一页
     @GET("community/apps")
-    Observable<HttpResult<AppRecentData>> getFindRecentDatas(@Query("pos") int page,
+    Observable<HttpResult<AppRecentData>> getFindRecentDatas(@Query("pos") long page,
                                                              @Query("page_size") int page_size,
                                                              @Query("platform") int platform);
 

@@ -59,7 +59,7 @@ public class FindRoundAdapter extends BaseQuickAdapter<MediaArticle, BaseViewHol
     }
 
     public void setHeaderDatas(@Nullable List<MediaArticle> datas) {
-        HeaderAdapter adapter = (HeaderAdapter) ((ViewPager) getHeaderLayout().getChildAt(0)
+        HeaderAdapter adapter = (HeaderAdapter) ((ViewPager) getHeaderLayout().getChildAt(1)
                 .findViewById(R.id.vp_header))
                 .getAdapter();
         if (adapter != null) adapter.loadDatas(datas);
