@@ -39,6 +39,7 @@ dependencies {
     implementation rootProject.ext.dependencies.gson
     implementation rootProject.ext.dependencies.baseAdapter
     implementation rootProject.ext.dependencies.glide
+    implementation rootProject.ext.dependencies.flexbox
     implementation project(':slidemenulibrary')
     implementation project(':refreshlayout')
 }

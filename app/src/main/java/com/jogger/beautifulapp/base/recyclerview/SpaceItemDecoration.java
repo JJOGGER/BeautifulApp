@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.util.SizeUtil;
 
 /**
@@ -23,10 +24,11 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             state) {
         int position = parent.getChildLayoutPosition(view);
         //rcyclerview有头布局
-        if (position == 1 || position == 2) {
+        int headerLayoutCount = ((BaseQuickAdapter) parent.getAdapter()).getHeaderLayoutCount();
+        if (position == headerLayoutCount || position == headerLayoutCount + 1) {
             outRect.top = SizeUtil.dp2px(12);
         }
-        if (position % 2 == 1) {//第一列数据设置right
+        if (position % 2 == headerLayoutCount) {//第一列数据设置right
             outRect.right = space;
         }
     }

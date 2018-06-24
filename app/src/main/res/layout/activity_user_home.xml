@@ -27,6 +27,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="24dp"
+                android:background="@mipmap/personal_head_bg"
                 android:src="@mipmap/ic_launcher"
                 app:border_color="@color/white"
                 app:layout_constraintStart_toStartOf="parent"/>

@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".function.ui.activity.FindChoiceDescActivity">
         </activity>
+        <activity android:name=".function.ui.activity.RecentDescActivity">
+        </activity>
     </application>
 
 </manifest>

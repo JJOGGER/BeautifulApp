@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/immersive"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity">
+    tools:context="com.jogger.beautifulapp.function.ui.activity.RecentDescActivity">
 
 
-    <com.jogger.beautifulapp.widget.DescScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,37 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/fl_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.jogger.beautifulapp.widget.DescImageView
-                    android:id="@+id/iv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="185dp"
-                    android:layout_marginTop="12dp"
-                    android:scaleType="centerCrop"/>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/detail_pic_shadow"/>
-            </FrameLayout>
-
             <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="68dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fl_title"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -83,19 +61,29 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
 
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/fbl_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:flexWrap="wrap"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_icon"/>
+
             <ImageButton
                 android:id="@+id/ibtn_collection_roll"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="32dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:background="@null"
                 android:src="@drawable/detail_collection_roll_selector"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_icon"
-                app:layout_constraintVertical_bias="0.0"/>
+                app:layout_constraintTop_toBottomOf="@+id/fbl_tag"
+                />
 
             <ImageButton
                 android:id="@+id/ibtn_share_roll"
@@ -174,14 +162,70 @@
                 app:layout_constraintBottom_toBottomOf="@+id/ibtn_download_roll"
                 app:layout_constraintStart_toEndOf="@+id/ibtn_download_roll"
                 app:layout_constraintTop_toTopOf="@+id/ibtn_download_roll"/>
+
+            <TextView
+                android:id="@+id/tv_flowers"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="54dp"
+                android:layout_marginTop="12dp"
+                android:drawableEnd="@mipmap/detail_flower"
+                android:drawablePadding="2dp"
+                android:text="38"
+                android:textColor="@color/gray_777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:gravity="end"
+                android:text="喵喵喵喵喵喵"
+                android:textColor="@color/black_333333"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_flowers"
+                app:layout_constraintEnd_toStartOf="@+id/tv_flowers"
+                app:layout_constraintTop_toTopOf="@+id/tv_flowers"/>
+
+            <TextView
+                android:id="@+id/tv_career"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="Hei,hei"
+                android:textColor="@color/gray_777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_flowers"
+                app:layout_constraintTop_toBottomOf="@+id/tv_flowers"/>
+
+            <LinearLayout
+                android:id="@+id/ll_img_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc"/>
         </android.support.constraint.ConstraintLayout>
-    </com.jogger.beautifulapp.widget.DescScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/fl_top_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal">
 
         <ImageButton
@@ -216,6 +260,15 @@
             android:layout_marginStart="188dp"
             android:src="@drawable/detail_download_roll_selector"
             android:visibility="invisible"/>
+
+        <com.jogger.beautifulapp.widget.CircleImageView
+            android:id="@+id/iv_user_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="@mipmap/forum_detail_head_bg"
+            app:border_color="@android:color/transparent"/>
     </FrameLayout>
 
     <include layout="@layout/include_bottom_layout"/>

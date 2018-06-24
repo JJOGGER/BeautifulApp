@@ -1,14 +1,18 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
 import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.RecentAppData;
 import com.jogger.beautifulapp.function.adapter.FindRecentAdapter;
 import com.jogger.beautifulapp.function.contract.FindRecentContract;
 import com.jogger.beautifulapp.function.presenter.FindRecentPresenter;
+import com.jogger.beautifulapp.function.ui.activity.RecentDescActivity;
 
 import java.util.List;
 
@@ -20,7 +24,7 @@ import butterknife.BindView;
 
 public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implements
         FindRecentContract.View, RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter
-        .RequestLoadMoreListener {
+        .RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.rv_content)
     RefreshRecyclerView rvContent;
     private FindRecentAdapter mAdapter;
@@ -37,7 +41,8 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
         mAdapter = new FindRecentAdapter(null);
         rvContent.setAdapter(mAdapter);
         rvContent.setOnRefreshListener(this);
-        mAdapter.setOnLoadMoreListener(this,rvContent);
+        mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnLoadMoreListener(this, rvContent);
     }
 
     @Override
@@ -88,5 +93,12 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
                 else mAdapter.loadMoreEnd();
             }
         }, 100);
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        RecentAppData recentAppData = (RecentAppData) adapter.getItem(position);
+        if (recentAppData == null) return;
+        startNewActivity(RecentDescActivity.class, Constant.ID, recentAppData.getId());
     }
 }

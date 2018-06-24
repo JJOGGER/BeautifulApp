@@ -45,4 +45,6 @@ interface IHttpRequest<T> {
                       OnHttpRequestListener<T> listener);
 
     void getChoiceDescData(int id, OnHttpRequestListener<T> listener);
+
+    void getRecentDescData(int id, OnHttpRequestListener<T> listener);
 }

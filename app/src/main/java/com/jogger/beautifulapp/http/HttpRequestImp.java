@@ -14,6 +14,7 @@ import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
+import com.jogger.beautifulapp.entity.RecentAppData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
 
@@ -148,6 +149,13 @@ class HttpRequestImp implements IHttpRequest {
         Observable<HttpResult<AppInfo>> getChoiceDescData = mRequestService
                 .getChoiceDescData(id);
         enqueue(getChoiceDescData, listener);
+    }
+
+    @Override
+    public void getRecentDescData(int id, OnHttpRequestListener listener) {
+        Observable<HttpResult<RecentAppData>> getRecentDescData = mRequestService
+                .getRecentDescData(id);
+        enqueue(getRecentDescData, listener);
     }
 
     /**

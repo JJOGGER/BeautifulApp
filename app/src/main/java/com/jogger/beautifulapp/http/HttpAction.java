@@ -10,6 +10,7 @@ import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
+import com.jogger.beautifulapp.entity.RecentAppData;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 @SuppressWarnings("unchecked")
@@ -120,6 +121,9 @@ public class HttpAction extends BaseHttpAction {
      */
     public void getChoiceDescData(int id, OnHttpRequestListener<AppInfo> listener) {
         mHttpRequest.getChoiceDescData(id, listener);
+    }
+    public void getRecentDescData(int id, OnHttpRequestListener<RecentAppData> listener){
+        mHttpRequest.getRecentDescData(id, listener);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
+import com.jogger.beautifulapp.entity.RecentAppData;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -104,11 +105,23 @@ public interface RequestService {
                                                      @Query("page_size") int page_size,
                                                      @Query("platform") int platform);
 
+    /**
+     * 排名
+     */
     @GET("api/v2/apps/rank/")
     Observable<HttpResult<AppSocialArticleData>> getRankDatas(@Query("page") int page,
                                                               @Query("page_size") int page_size,
                                                               @Query("platform") int platform);
 
+    /**
+     * 精选详情
+     */
     @GET("apps/app/{id}/")
     Observable<HttpResult<AppInfo>> getChoiceDescData(@Path("id") int id);
+
+    /**
+     * 最近详情
+     */
+    @GET("community/app/{id}/")
+    Observable<HttpResult<RecentAppData>> getRecentDescData(@Path("id") int id);
 }
