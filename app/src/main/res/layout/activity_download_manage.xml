@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/immersive"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_7a7ead"
+    tools:context=".function.ui.activity.DownloadManageActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/purple_a5a8c9"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/zuimeia_sdk_download_titlebar_back_selector"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:text="下载内容"
+        android:textColor="@color/text_press_selector"
+        android:textSize="18sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <TextView
+        android:id="@+id/tv_no_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="无下载内容"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/purple_666883"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="取消勾选"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

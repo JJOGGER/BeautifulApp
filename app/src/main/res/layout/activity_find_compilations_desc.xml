@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".function.ui.activity.FindCompilationsDescActivity">
+
+    <com.jogger.beautifulapp.widget.DescScrollView
+        android:id="@+id/nsv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.jogger.beautifulapp.widget.DescImageView
+                android:id="@+id/iv_title"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_0aabd9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_title">
+
+                <TextView
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="16dp"
+                    android:id="@+id/tv_header_title"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:paddingStart="8dp"
+                    android:lineSpacingExtra="3dp"
+                    android:paddingBottom="16dp"
+                    android:paddingEnd="12dp"
+                    android:layout_below="@id/tv_header_title"
+                    android:id="@+id/tv_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_c1eaf5"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_header"/>
+        </android.support.constraint.ConstraintLayout>
+    </com.jogger.beautifulapp.widget.DescScrollView>
+
+    <ImageButton
+        android:id="@+id/ibtn_return"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
+        android:background="@null"
+        android:src="@drawable/return_selector"/>
+</FrameLayout>

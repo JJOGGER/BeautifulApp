@@ -1,10 +1,13 @@
 package com.jogger.beautifulapp.function.presenter;
 
+import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BasePresenter;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.function.contract.FindRoundContract;
 import com.jogger.beautifulapp.function.model.FindRoundModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+import com.jogger.beautifulapp.util.T;
 
 public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, FindRoundContract
         .Model> implements FindRoundContract.Presenter {
@@ -17,7 +20,7 @@ public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, Fi
 
     @Override
     public void getFindRoundTopDatas() {
-        mModle.getFindRoundTopDatas(new OnHttpRequestListener<AppMediaArticleData>() {
+        getModel().getFindRoundTopDatas(new OnHttpRequestListener<AppMediaArticleData>() {
             @Override
             public void onFailure(int errorCode) {
 
@@ -25,10 +28,10 @@ public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, Fi
 
             @Override
             public void onSuccess(AppMediaArticleData appMediaArticleData) {
-                if (mView == null || appMediaArticleData == null || appMediaArticleData
+                if (unViewAttached() || appMediaArticleData == null || appMediaArticleData
                         .getMedia_articles() == null)
                     return;
-                mView.getFindRoundTopDatasSuccess(appMediaArticleData.getMedia_articles());
+                getView().getFindRoundTopDatasSuccess(appMediaArticleData.getMedia_articles());
             }
         });
     }
@@ -36,7 +39,7 @@ public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, Fi
     @Override
     public void getFindRoundDatas() {
         mPage = 1;
-        mModle.getFindRoundDatas(mPage, mPageSize, new OnHttpRequestListener<AppMediaArticleData>
+        getModel().getFindRoundDatas(mPage, mPageSize, new OnHttpRequestListener<AppMediaArticleData>
                 () {
             @Override
             public void onFailure(int errorCode) {
@@ -44,11 +47,11 @@ public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, Fi
 
             @Override
             public void onSuccess(AppMediaArticleData appMediaArticleData) {
-                if (mView == null || appMediaArticleData == null || appMediaArticleData
+                if (unViewAttached() || appMediaArticleData == null || appMediaArticleData
                         .getMedia_articles() == null)
                     return;
                 mHasNext = appMediaArticleData.getHas_next() == 1;
-                mView.getFindRoundDatasSuccess(appMediaArticleData.getMedia_articles());
+                getView().getFindRoundDatasSuccess(appMediaArticleData.getMedia_articles());
             }
         });
     }
@@ -56,21 +59,45 @@ public class FindRoundPresenter extends BasePresenter<FindRoundContract.View, Fi
     @Override
     public void getMoreDatas() {
         mPage++;
-        mModle.getFindRoundDatas(mPage, mPageSize, new OnHttpRequestListener<AppMediaArticleData>
+        getModel().getFindRoundDatas(mPage, mPageSize, new OnHttpRequestListener<AppMediaArticleData>
                 () {
             @Override
             public void onFailure(int errorCode) {
-                if (mView == null) return;
-                mView.getMoreDatasFail();
+                if (unViewAttached()) return;
+                getView().getMoreDatasFail();
             }
 
             @Override
             public void onSuccess(AppMediaArticleData appMediaArticleData) {
-                if (mView == null || appMediaArticleData == null || appMediaArticleData
+                if (unViewAttached() || appMediaArticleData == null || appMediaArticleData
                         .getMedia_articles() == null)
                     return;
                 mHasNext = appMediaArticleData.getHas_next() == 1;
-                mView.getFindRoundDatasSuccess(appMediaArticleData.getMedia_articles());
+                getView().getMoreDatasSuccess(appMediaArticleData.getMedia_articles());
+            }
+        });
+    }
+
+    @Override
+    public void getDescDatas(int id) {
+        getView().showLoadingWindow();
+        getModel().getDescDatas(id, new OnHttpRequestListener<AppInfo>() {
+            @Override
+            public void onFailure(int errorCode) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+                getView().getDescDatasFail();
+            }
+
+            @Override
+            public void onSuccess(AppInfo info) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+                if (info==null){
+                    T.show(R.string.request_failure);
+                    return;
+                }
+                getView().getDescDatasSuccess(info);
             }
         });
     }

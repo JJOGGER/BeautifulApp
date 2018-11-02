@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="title"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/iv_icon"

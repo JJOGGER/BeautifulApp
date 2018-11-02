@@ -22,7 +22,6 @@ public class FindNiceFriendFragment extends BaseFragment<FindNiceFriendPresenter
     @BindView(R.id.rv_content)
     RefreshRecyclerView rvContent;
     private FindNiceFriendAdapter mAdapter;
-    private boolean mIsLoading;
 
     @Override
     public int getLayoutId() {

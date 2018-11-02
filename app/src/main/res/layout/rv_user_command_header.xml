@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tv_flowers_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:paddingTop="4dp"
+            android:text="@string/obtain_msg"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_flowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_flowers_hint"
+            android:drawablePadding="4dp"
+            android:drawableStart="@mipmap/personal_icon_flower"
+            android:paddingBottom="6dp"
+            android:paddingStart="4dp"
+            android:paddingTop="4dp"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+</FrameLayout>

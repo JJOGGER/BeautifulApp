@@ -16,9 +16,10 @@ public abstract class SwipeBackActivity<T extends IPresenter> extends BaseActivi
     private SwipeBackActivityHelper mHelper;
     protected T mPresenter;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void init() {
-        mPresenter= (T) super.mPresenter;
+        mPresenter = (T) super.mPresenter;
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
         SwipeBackLayout swipeBackLayout = getSwipeBackLayout();

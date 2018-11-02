@@ -1,9 +1,10 @@
 package com.jogger.beautifulapp.entity;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Category {
+public class Category implements Serializable{
     private String icon_url;
     private List<TopApp> top_apps;
     private int id;

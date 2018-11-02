@@ -26,4 +26,6 @@
     <string name="download">下载</string>
     <string name="share">分享</string>
     <string name="exit_msg">再按一次退出</string>
+    <string name="request_failure">请求失败</string>
+    <string name="join_party_msg">参加新生态未来峰会</string>
 </resources>

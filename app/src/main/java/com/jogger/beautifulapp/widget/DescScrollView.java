@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 
-import com.jogger.beautifulapp.util.L;
-
 /**
  * Created by Jogger on 2018/6/18.
  */
@@ -90,7 +88,8 @@ public class DescScrollView extends NestedScrollView implements OnTouchListener 
             transAnim((mScrollY) / 2);
         } else {
             mIsTransing = false;
-            mImageView.setTran(false);
+            if (mImageView != null)
+                mImageView.setTran(false);
         }
     }
 
@@ -228,8 +227,7 @@ public class DescScrollView extends NestedScrollView implements OnTouchListener 
         if (layoutParams.height < mMinHeight) {
             layoutParams.height = mMinHeight;
         }
-        if (layoutParams.height > getContext().getResources().getDisplayMetrics().heightPixels)
-        {//设置界限
+        if (layoutParams.height > getContext().getResources().getDisplayMetrics().heightPixels) {//设置界限
             layoutParams.height = getContext().getResources().getDisplayMetrics().heightPixels;
         }
         mImageView.setLayoutParams(layoutParams);
@@ -238,9 +236,8 @@ public class DescScrollView extends NestedScrollView implements OnTouchListener 
     }
 
     private void transAnim(int moveY) {
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)
+        MarginLayoutParams layoutParams = (MarginLayoutParams)
                 mImageView.getLayoutParams();
-        L.e("---------transAnim:" + moveY);
         mImageView.setOffsetY(moveY);
 //        mImageView.setLayoutParams(layoutParams);
 //        layoutParams.height = mMinHeight + moveY / 3;//设置高度

@@ -22,7 +22,7 @@ public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
     @Override
     public void getRecentDatas() {
         mPage = -1;
-        mModle.getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
+        getModel().getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("--------errorCode:" + errorCode);
@@ -30,9 +30,9 @@ public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
 
             @Override
             public void onSuccess(AppRecentData appData) {
-                if (mView == null || appData == null || appData.getApps() == null) return;
+                if (unViewAttached() || appData == null || appData.getApps() == null) return;
                 mHasNext = appData.getHas_next() == 1;
-                mView.getRecentDatasSuccess(appData.getApps());
+                getView().getRecentDatasSuccess(appData.getApps());
                 mLastPos = appData.getApps().get(appData.getApps().size() - 1).getPos();
             }
         });
@@ -41,22 +41,23 @@ public class FindRecentPresenter extends BasePresenter<FindRecentContract.View,
     @Override
     public void getMoreDatas() {
         mPage = mLastPos;
-        mModle.getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
+        getModel().getRecentDatas(mPage, mPageSize, new OnHttpRequestListener<AppRecentData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("--------errorCode:" + errorCode);
-                if (mView == null) return;
-                mView.getMoreDatasFail();
+                if (unViewAttached()) return;
+                getView().getMoreDatasFail();
             }
 
             @Override
             public void onSuccess(AppRecentData appData) {
-                if (mView == null) return;
+                if (unViewAttached()) return;
                 mHasNext = appData.getHas_next() == 1;
-                mView.getMoreDatasSuccess(appData.getApps());
+                getView().getMoreDatasSuccess(appData.getApps());
             }
         });
     }
+
 
     @Override
     public FindRecentContract.Model attachModel() {

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.control.ActivityCollector;
 import com.jogger.beautifulapp.util.StatusUtil;
+import com.jogger.beautifulapp.widget.LoadingWindow;
 
 import java.io.Serializable;
 
@@ -30,6 +31,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     private ProgressDialog mProgressDialog;
     protected T mPresenter;
     private Unbinder mBind;
+    private LoadingWindow mLoadingWindow;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -39,7 +41,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         getWindow().setBackgroundDrawable(null);
         mBind = ButterKnife.bind(this);
         ActivityCollector.addActivity(this);
-        mPresenter=createPresenter();
+        mPresenter = createPresenter();
         if (mPresenter != null)
             mPresenter.attachView(this);
         //开启沉浸式状态栏
@@ -114,7 +116,22 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         if (!mProgressDialog.isShowing())
             mProgressDialog.show();
     }
+    @Override
+    public void showLoadingWindow() {
+        if (isFinishing() || isDestroyed()) return;
+        if (mLoadingWindow == null)
+            mLoadingWindow = new LoadingWindow();
+        mLoadingWindow.show(this);
+    }
 
+    @Override
+    public void dismissLoadingWindow() {
+        if (isFinishing() ||isDestroyed()) return;
+        if (mLoadingWindow != null) {
+            mLoadingWindow.dismiss();
+            mLoadingWindow = null;
+        }
+    }
     public void cancelProgressDialog() {
         if (mProgressDialog == null) return;
         if (mProgressDialog.isShowing())
@@ -191,6 +208,7 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         super.onDestroy();
         cancelProgressDialog();
         ActivityCollector.removeActivity(this);
+        dismissLoadingWindow();
         if (mPresenter != null)
             mPresenter.detachView();
         mBind.unbind();

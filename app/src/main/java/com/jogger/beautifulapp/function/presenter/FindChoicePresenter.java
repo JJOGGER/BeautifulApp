@@ -1,12 +1,15 @@
 package com.jogger.beautifulapp.function.presenter;
 
+import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BasePresenter;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.function.contract.FindChoiceContract;
 import com.jogger.beautifulapp.function.model.FindChoiceModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
+import com.jogger.beautifulapp.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +21,17 @@ public class FindChoicePresenter extends BasePresenter<FindChoiceContract.View,
 
     @Override
     public void getFindChoiceDatas() {
-        mModle.getFindChoiceDatas("0", new OnHttpRequestListener<FindChoiceData>() {
+        getView().showLoadingWindow();
+        getModel().getFindChoiceDatas("0", new OnHttpRequestListener<FindChoiceData>() {
             @Override
             public void onFailure(int errorCode) {
-                L.e("-------"+errorCode);
+                L.e("-------" + errorCode);
             }
 
             @Override
             public void onSuccess(FindChoiceData appData) {
-                if (mView == null || appData == null || appData.getContent() == null) return;
+                if (unViewAttached() || appData == null || appData.getContent() == null) return;
+                getView().dismissLoadingWindow();
                 mNextDate = appData.getNext_date();
                 List<MediaArticle> mediaArticles = new ArrayList<>();
                 for (int i = 0; i < appData.getContent().size(); i++) {
@@ -34,7 +39,7 @@ public class FindChoicePresenter extends BasePresenter<FindChoiceContract.View,
                     mediaArticle.setDate(appData.getContent().get(i).getLabel_date());
                     mediaArticles.add(mediaArticle);
                 }
-                mView.getFindChoiceDatasSuccess(mediaArticles);
+                getView().getFindChoiceDatasSuccess(mediaArticles);
 
             }
         });
@@ -42,23 +47,46 @@ public class FindChoicePresenter extends BasePresenter<FindChoiceContract.View,
 
     @Override
     public void getMoreDatas() {
-        mModle.getFindChoiceDatas(mNextDate, new OnHttpRequestListener<FindChoiceData>() {
+        getModel().getFindChoiceDatas(mNextDate, new OnHttpRequestListener<FindChoiceData>() {
             @Override
             public void onFailure(int errorCode) {
-                if (mView == null) return;
-                mView.getMoreDatasFail();
+                if (unViewAttached()) return;
+                getView().getMoreDatasFail();
             }
 
             @Override
             public void onSuccess(FindChoiceData appData) {
-                if (mView == null || appData == null || appData.getContent() == null) return;
+                if (unViewAttached() || appData == null || appData.getContent() == null) return;
                 mNextDate = appData.getNext_date();
                 List<MediaArticle> mediaArticles = new ArrayList<>();
                 for (int i = 0; i < appData.getContent().size(); i++) {
                     mediaArticles.add(appData.getContent().get(i).getApps().get(0));
                 }
-                mView.getMoreDatasSuccess(mediaArticles);
+                getView().getMoreDatasSuccess(mediaArticles);
+            }
+        });
+    }
 
+    @Override
+    public void getChoiceDescData(int id) {
+        getView().showLoadingWindow();
+        getModel().getChoiceDescData(id, new OnHttpRequestListener<AppInfo>() {
+            @Override
+            public void onFailure(int errorCode) {
+                L.e("---errorCode:" + errorCode);
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+            }
+
+            @Override
+            public void onSuccess(AppInfo appInfo) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+                if (appInfo == null) {
+                    T.show(R.string.request_failure);
+                    return;
+                }
+                getView().getChoiceDescDataSuccess(appInfo);
             }
         });
     }

@@ -29,7 +29,6 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
     RefreshRecyclerView rvContent;
     private FindRecentAdapter mAdapter;
     private boolean mIsLoading;
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_find_item;
@@ -99,6 +98,6 @@ public class FindRecentFragment extends BaseFragment<FindRecentPresenter> implem
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         RecentAppData recentAppData = (RecentAppData) adapter.getItem(position);
         if (recentAppData == null) return;
-        startNewActivity(RecentDescActivity.class, Constant.ID, recentAppData.getId());
+        startNewActivity(RecentDescActivity.class, Constant.APP_DATA, recentAppData);
     }
 }

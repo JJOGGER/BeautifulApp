@@ -7,17 +7,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
-import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.function.contract.DialyPagerContract;
+import com.jogger.beautifulapp.function.presenter.DialyPagerPresenter;
 import com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity;
+import com.jogger.beautifulapp.util.NetworkUtil;
+import com.jogger.beautifulapp.util.T;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class DialiyPageFragment extends BaseFragment implements DialyPagerContract.View {
+public class DialiyPageFragment extends BaseFragment<DialyPagerPresenter> implements DialyPagerContract.View {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_sub_title)
@@ -51,13 +53,22 @@ public class DialiyPageFragment extends BaseFragment implements DialyPagerContra
     }
 
     @Override
-    protected IPresenter createPresenter() {
-        return null;
+    protected DialyPagerPresenter createPresenter() {
+        return new DialyPagerPresenter();
     }
 
     @OnClick(R.id.cl_main)
-    public void onClick(){
-        startNewActivity(FindChoiceDescActivity.class,Constant.ID,mAppInfo.getId());
+    public void onClick() {
+        if (mAppInfo == null) return;
+        if (!NetworkUtil.isNetworkAvailable()) {
+            T.show(R.string.request_failure);
+            return;
+        }
+        mPresenter.getChoiceDescData(mAppInfo.getId());
     }
 
+    @Override
+    public void getChoiceDescDataSuccess(AppInfo appInfo) {
+        startNewActivity(FindChoiceDescActivity.class, Constant.APP_INFO, appInfo);
+    }
 }

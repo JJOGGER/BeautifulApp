@@ -18,7 +18,7 @@ public class FindNiceFriendPresenter extends BasePresenter<FindNiceFriendContrac
 
     @Override
     public void getFindNickFriendDatas() {
-        mModle.getFindNiceFriendDatas(new OnHttpRequestListener<AppNiceFriendData>() {
+        getModel().getFindNiceFriendDatas(new OnHttpRequestListener<AppNiceFriendData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("----errcode:"+errorCode);
@@ -26,8 +26,8 @@ public class FindNiceFriendPresenter extends BasePresenter<FindNiceFriendContrac
 
             @Override
             public void onSuccess(AppNiceFriendData appNiceFriendData) {
-                if (mView == null) return;
-                mView.getFindNiceFriendDatasSuccess(appNiceFriendData.getUsers_rank());
+                if (unViewAttached()) return;
+                getView().getFindNiceFriendDatasSuccess(appNiceFriendData.getUsers_rank());
             }
         });
     }

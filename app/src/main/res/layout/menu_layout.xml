@@ -234,4 +234,38 @@
         app:layout_constraintEnd_toEndOf="@+id/barrier2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_rank"/>
+
+    <ImageButton
+        android:id="@+id/ibtn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:background="@null"
+        android:src="@drawable/sidebar_bottomicon_search_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_join_party"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/join_party_msg"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ibtn_search"
+        app:layout_constraintStart_toEndOf="@+id/ibtn_search"
+        app:layout_constraintTop_toTopOf="@+id/ibtn_search"/>
+
+    <ImageButton
+        android:id="@+id/ibtn_download_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        android:src="@drawable/sidebar_bottomicon_download_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_join_party"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_join_party"/>
 </android.support.constraint.ConstraintLayout>

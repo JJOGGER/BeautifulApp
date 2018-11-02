@@ -1,9 +1,10 @@
 package com.jogger.beautifulapp.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class TopApp {
+public class TopApp implements Serializable{
     private String package_name;
     private String title;
     private String icon_url;
@@ -14,7 +15,7 @@ public class TopApp {
     private String type;
     private int id;
     private List<DownloadMethod> other_download_url;
-
+    private boolean show;
     public String getPackage_name() {
         return package_name;
     }
@@ -85,6 +86,14 @@ public class TopApp {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 
     public List<DownloadMethod> getOther_download_url() {

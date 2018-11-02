@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.jogger.beautifulapp.BuildConfig;
+import com.jogger.beautifulapp.db.DBManager;
 
 
 /**
@@ -27,7 +28,7 @@ public class Util {
         if (BuildConfig.DEBUG)
             L.plant(new L.DebugTree());
 //        //初始化数据库
-//        DBManager.initDB(app);
+        DBManager.initDB(app);
 //        PushManager.initPush();
     }
 

@@ -1,7 +1,7 @@
 package com.jogger.beautifulapp.function.presenter;
 
 import com.jogger.beautifulapp.base.BasePresenter;
-import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.UserHomeInfo;
 import com.jogger.beautifulapp.function.contract.UserHomeContract;
 import com.jogger.beautifulapp.function.model.UserHomeModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
@@ -9,26 +9,26 @@ import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 public class UserHomePresenter extends BasePresenter<UserHomeContract.View, UserHomeContract
         .Model> implements UserHomeContract.Presenter {
-    public UserHomePresenter(int userId){
-
-    }
     @Override
     public UserHomeContract.Model attachModel() {
         return new UserHomeModel();
     }
 
     @Override
-    public void getUserRecommendDatas(int page, int page_size) {
-        mModle.getUserRecommendDatas(page, page_size, new OnHttpRequestListener<AppRecentData>() {
+    public void getUserHomeInfo(int id) {
+        getView().showLoadingWindow();
+        getModel().getUserHomeInfo(id, new OnHttpRequestListener<UserHomeInfo>() {
             @Override
             public void onFailure(int errorCode) {
-
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
             }
 
             @Override
-            public void onSuccess(AppRecentData appRecentData) {
-                if (mView == null) return;
-                mView.getUserRecommendDatasSuccess(appRecentData);
+            public void onSuccess(UserHomeInfo userHomeInfo) {
+                if (unViewAttached() || userHomeInfo == null) return;
+                getView().dismissLoadingWindow();
+                getView().getUserHomeInfoSuccess(userHomeInfo);
             }
         });
     }

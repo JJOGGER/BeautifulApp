@@ -26,6 +26,9 @@ import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.IPresenter;
 import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.User;
+import com.jogger.beautifulapp.entity.UserHomeInfo;
+import com.jogger.beautifulapp.function.contract.UserHomeContract;
+import com.jogger.beautifulapp.function.presenter.UserHomePresenter;
 import com.jogger.beautifulapp.function.ui.fragment.UserHomeCollectFragment;
 import com.jogger.beautifulapp.function.ui.fragment.UserHomeRecommendFragment;
 import com.jogger.beautifulapp.swipelayoutlib.app.SwipeBackActivity;
@@ -36,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //美友主页
-public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnPageChangeListener {
+public class UserHomeActivity extends SwipeBackActivity<UserHomePresenter> implements UserHomeContract.View, ViewPager.OnPageChangeListener {
     private static final int RECOMMAND_PAGE = 0;
     @BindView(R.id.immersive)
     RelativeLayout rlMain;
@@ -73,7 +76,7 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
 
     @Override
     protected IPresenter createPresenter() {
-        return null;
+        return new UserHomePresenter();
     }
 
     @Override
@@ -81,11 +84,13 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
         super.init();
         mUser = (User) getIntent().getSerializableExtra(Constant.USER_INFO);
         if (mUser == null) return;
+        mPresenter.getUserHomeInfo(mUser.getId());
         tvTitle.setText(mUser.getName());
         tvSubTitle.setText(mUser.getCareer());
         Glide.with(this)
                 .load(mUser.getAvatar_url())
                 .into(ivIcon);
+        L.e("------mUser.getBg_color()："+mUser.getBg_color());
         rlMain.setBackgroundColor(Color.parseColor(mUser.getBg_color()));
         vpContent.addOnPageChangeListener(this);
         vpContent.setOffscreenPageLimit(2);
@@ -95,6 +100,7 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
 
             @Override
             public void onGlobalLayout() {
+                //伸展动画
                 clHeader.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)
                         clHeader.getLayoutParams();
@@ -104,7 +110,6 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
                 mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                        L.e("----------onAnimationEnd伸展动画结束");
                         clTop.setVisibility(View.VISIBLE);
                         int margin = (int) valueAnimator.getAnimatedValue();
                         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)
@@ -117,7 +122,7 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
                         clTab.setScaleY(0.8f + valueAnimator.getAnimatedFraction() * 0.2f);
                     }
                 });
-                mValueAnimator.setDuration(200);
+                mValueAnimator.setDuration(300);
                 mValueAnimator.setRepeatCount(0);
                 mValueAnimator2 = ValueAnimator.ofInt(mOriTopMargin, -mMoveHeight);
                 mValueAnimator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -143,14 +148,11 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
 
             }
         });
-        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
-        vpContent.setAdapter(adapter);
-        updateCount(0,0);
     }
 
     public void updateCount(int commandCount, int collectionCount) {
         if (commandCount != -1) {
-            String recommand = String.format(getString(R.string.recommend_format), 5);
+            String recommand = String.format(getString(R.string.recommend_format), commandCount);
             SpannableString spannableRecommand = new SpannableString(recommand);
             spannableRecommand.setSpan(new TextAppearanceSpan(this, R.style.UserTabTextStyle1),
                     0, 2,
@@ -163,7 +165,7 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
             tvRecommend.setText(spannableRecommand);
         }
         if (collectionCount != -1) {
-            String collection = String.format(getString(R.string.collection_format), 5);
+            String collection = String.format(getString(R.string.collection_format), collectionCount);
 
             SpannableString spannableCollection = new SpannableString(collection);
             spannableCollection.setSpan(new TextAppearanceSpan(this, R.style.UserTabTextStyle1), 0,
@@ -230,9 +232,19 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
         }
     }
 
+    @Override
+    public void getUserHomeInfoSuccess(UserHomeInfo userHomeInfo) {
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), userHomeInfo.getUp_counts());
+        vpContent.setAdapter(adapter);
+        updateCount(userHomeInfo.getApp_counts(), userHomeInfo.getCollect_counts());
+    }
+
     private class MyAdapter extends FragmentPagerAdapter {
-        MyAdapter(FragmentManager fm) {
+        private int mUpCounts;
+
+        MyAdapter(FragmentManager fm, int up_counts) {
             super(fm);
+            mUpCounts = up_counts;
         }
 
         @Override
@@ -242,6 +254,7 @@ public class UserHomeActivity extends SwipeBackActivity implements ViewPager.OnP
             bundle.putSerializable(Constant.USER_INFO, mUser);
             if (position == RECOMMAND_PAGE) {
                 baseFragment = new UserHomeRecommendFragment();
+                bundle.putInt(Constant.FLOWERS, mUpCounts);
             } else {
                 baseFragment = new UserHomeCollectFragment();
             }

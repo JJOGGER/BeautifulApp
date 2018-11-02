@@ -13,4 +13,5 @@ public class FindRecentModel implements FindRecentContract.Model {
             listener) {
         HttpAction.getHttpAction().getFindRecentDatas(page, pageSize, listener);
     }
+
 }

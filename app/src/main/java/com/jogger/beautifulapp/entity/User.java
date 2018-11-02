@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public class User implements Serializable{
     private String name;
-    private String userName;
     private String career;
     private String bg_color;
     private String avatar_url;
@@ -13,6 +12,17 @@ public class User implements Serializable{
     private String flowers;
     private int id;
     private String ename;
+    public User(){}
+    public User(RecentAppData appData) {
+        this.id=appData.getAuthor_id();
+        this.avatar_url=appData.getAuthor_avatar_url();
+        this.bg_color=appData.getAuthor_bgcolor();
+        this.career=appData.getAuthor_career();
+        this.ename=appData.getAuthor_name();
+        this.flowers=String.valueOf(appData.getAuthor_flowers());
+        this.identity=String.valueOf(appData.getAuthor_identity());
+
+    }
 
     public String getName() {
         return name;
@@ -20,14 +30,6 @@ public class User implements Serializable{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getCareer() {
@@ -89,7 +91,6 @@ public class User implements Serializable{
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
                 ", career='" + career + '\'' +
                 ", bg_color='" + bg_color + '\'' +
                 ", avatar_url='" + avatar_url + '\'' +

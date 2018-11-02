@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_header"
+                android:drawableStart="@drawable/zuimeia_sdk_download_icon_dropup_selector"
+                android:layout_width="match_parent"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:paddingStart="16dp"
+                android:text="今天"
+                android:textColor="@color/text_press_selector"
+                android:textSize="16sp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/iv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_header"/>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

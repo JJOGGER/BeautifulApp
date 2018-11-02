@@ -2,27 +2,27 @@ package com.jogger.beautifulapp.http;
 
 import android.annotation.SuppressLint;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.jogger.beautifulapp.entity.AppCategoryData;
+import com.jogger.beautifulapp.entity.AppCategoryMoreData;
 import com.jogger.beautifulapp.entity.AppCollectData;
+import com.jogger.beautifulapp.entity.AppCompilationDescData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.AppSearchData;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.entity.RecentAppData;
+import com.jogger.beautifulapp.entity.TagData;
+import com.jogger.beautifulapp.entity.UserHomeInfo;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -38,11 +38,9 @@ import retrofit2.Response;
 @SuppressWarnings("unchecked")
 class HttpRequestImp implements IHttpRequest {
     private final RequestService mRequestService;
-    private Gson mGson;
 
     HttpRequestImp(RequestService requestService) {
         mRequestService = requestService;
-        mGson = new Gson();
     }
 
     @Override
@@ -105,6 +103,13 @@ class HttpRequestImp implements IHttpRequest {
     }
 
     @Override
+    public void getUserHomeInfo(int id, int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<UserHomeInfo>> userHomeInfo = mRequestService
+                .getUserHomeInfo(id, platform);
+        enqueue(userHomeInfo, listener);
+    }
+
+    @Override
     public void getUserRecommendDatas(int userId, int page, int page_size, int platform,
                                       OnHttpRequestListener listener) {
         Observable<HttpResult<AppRecentData>> getUserRecommendDatas = mRequestService
@@ -158,38 +163,46 @@ class HttpRequestImp implements IHttpRequest {
         enqueue(getRecentDescData, listener);
     }
 
-    /**
-     * 不需要解析实体类的回调
-     */
-    private void enqueueVoid(Observable<Response<ResponseBody>> call, final
-    OnHttpRequestListener<Boolean> listener) {
-        call.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Response<ResponseBody>>() {
-                    @Override
-                    public void accept(Response<ResponseBody> response) throws Exception {
-                        try {
-                            String result = response.body().string();
-                            L.e("---------enqueueVoid:" + result);
-                            if (listener != null) {
-                                int code = getCode(result);
-                                if (code == 1) {
-                                    listener.onSuccess(true);
-                                } else {
-                                    listener.onFailure(code);
-                                }
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (listener != null)
-                            listener.onFailure(-1);
-                    }
-                });
+    @Override
+    public void getCompilationDescDatas(int id, int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppCompilationDescData>> compilationDescDatas = mRequestService
+                .getCompilationDescDatas(id, platform);
+        enqueue(compilationDescDatas, listener);
+    }
+
+    @Override
+    public void getSearchTags(String type, int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<TagData>> searchTags = mRequestService
+                .getSearchTags(type, platform);
+        enqueue(searchTags, listener);
+    }
+
+    @Override
+    public void getSearchs(String keyword, int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppSearchData>> searchs = mRequestService
+                .getSearchs(keyword, platform);
+        enqueue(searchs, listener);
+    }
+
+    @Override
+    public void getCategoryMoreDatas(int id, int page, int page_size, int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppCategoryMoreData>> categoryMoreDatas = mRequestService
+                .getCategoryMoreDatas(id, page, page_size, platform);
+        enqueue(categoryMoreDatas, listener);
+    }
+
+    @Override
+    public void getRandomDatas(int platform, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppRecentData>> randomDatas = mRequestService
+                .getRandomDatas(platform);
+        enqueue(randomDatas, listener);
+    }
+
+    @Override
+    public void getTagsMoreData(int id, int page, int pageSize, int platform, String type, OnHttpRequestListener listener) {
+        Observable<HttpResult<AppRecentData>> tagsMoreData = mRequestService
+                .getTagsMoreData(id, page, pageSize, platform, type);
+        enqueue(tagsMoreData, listener);
     }
 
 
@@ -209,41 +222,6 @@ class HttpRequestImp implements IHttpRequest {
                                 listener.onSuccess(tHttpResult.getData());
                             else
                                 listener.onFailure(tHttpResult.getResult());
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        L.e("----------onError:" + throwable);
-                        if (listener != null)
-                            listener.onFailure(-1);
-                    }
-                });
-    }
-
-    //解决多级嵌套解析不出的问题AppData<AppInfo>
-    private <T> void enqueues(Observable<Response<ResponseBody>> call, final
-    OnHttpRequestListener<T>
-            listener) {
-        call.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Response<ResponseBody>>() {
-                    @Override
-                    public void accept(Response<ResponseBody> response) throws Exception {
-                        String result = response.body().string();
-                        TypeToken<T> typeToken = new TypeToken<T>() {
-                        };
-                        Type type = typeToken.getType();
-                        JSONObject jsonObject_all = new JSONObject(result);
-                        JSONObject data = jsonObject_all.getJSONObject("data");
-                        L.e("---------json:" + data.toString());
-                        Object o = mGson.fromJson(data.toString(), type);
-                        int code = jsonObject_all.getInt("result");
-                        if (listener != null) {
-                            if (code == 1)
-                                listener.onSuccess((T) o);
-                            else
-                                listener.onFailure(code);
                         }
                     }
                 }, new Consumer<Throwable>() {

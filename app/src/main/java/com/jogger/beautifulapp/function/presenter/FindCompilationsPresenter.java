@@ -1,10 +1,13 @@
 package com.jogger.beautifulapp.function.presenter;
 
+import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BasePresenter;
+import com.jogger.beautifulapp.entity.AppCompilationDescData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.function.contract.FindCompilationsContract;
 import com.jogger.beautifulapp.function.model.FindCompilationsModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
+import com.jogger.beautifulapp.util.T;
 
 /**
  * Created by Jogger on 2018/6/14.
@@ -28,7 +31,7 @@ public class FindCompilationsPresenter extends BasePresenter<FindCompilationsCon
     @Override
     public void getFindCompilationsDatas() {
         mCurrentPage = 1;
-        mModle.getFindCompilationsDatas(mCurrentPage, mPageSize, new
+        getModel().getFindCompilationsDatas(mCurrentPage, mPageSize, new
                 OnHttpRequestListener<AppCompilationsData>() {
 
                     @Override
@@ -38,11 +41,11 @@ public class FindCompilationsPresenter extends BasePresenter<FindCompilationsCon
 
                     @Override
                     public void onSuccess(AppCompilationsData appCompilationsData) {
-                        if (mView == null || appCompilationsData == null || appCompilationsData
+                        if (unViewAttached() || appCompilationsData == null || appCompilationsData
                                 .getAlbums() == null)
                             return;
                         mHasNext = appCompilationsData.getHas_next() == 1;
-                        mView.getFindCompilationsDatasSuccess(appCompilationsData.getAlbums());
+                        getView().getFindCompilationsDatasSuccess(appCompilationsData.getAlbums());
                     }
                 });
     }
@@ -50,23 +53,46 @@ public class FindCompilationsPresenter extends BasePresenter<FindCompilationsCon
     @Override
     public void getMoreDatas() {
         mCurrentPage++;
-        mModle.getFindCompilationsDatas(mCurrentPage, mPageSize, new
+        getModel().getFindCompilationsDatas(mCurrentPage, mPageSize, new
                 OnHttpRequestListener<AppCompilationsData>() {
 
                     @Override
                     public void onFailure(int errorCode) {
-                        if (mView == null) return;
-                        mView.getMoreDatasFail();
+                        if (unViewAttached()) return;
+                        getView().getMoreDatasFail();
                     }
 
                     @Override
                     public void onSuccess(AppCompilationsData appCompilationsData) {
-                        if (mView == null || appCompilationsData == null || appCompilationsData
+                        if (unViewAttached() || appCompilationsData == null || appCompilationsData
                                 .getAlbums() == null)
                             return;
                         mHasNext = appCompilationsData.getHas_next() == 1;
-                        mView.getMoreDatasSuccess(appCompilationsData.getAlbums());
+                        getView().getMoreDatasSuccess(appCompilationsData.getAlbums());
                     }
                 });
+    }
+
+    @Override
+    public void getCompilationDescDatas(int id) {
+        getView().showLoadingWindow();
+        getModel().getCompilationDescDatas(id, new OnHttpRequestListener<AppCompilationDescData>() {
+            @Override
+            public void onFailure(int errorCode) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+            }
+
+            @Override
+            public void onSuccess(AppCompilationDescData appCompilationDescData) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+                if (appCompilationDescData == null) {
+                    T.show(R.string.request_failure);
+                    return;
+                }
+                getView().getCompilationDescDatasSuccess(appCompilationDescData);
+            }
+        });
     }
 }

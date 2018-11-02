@@ -10,16 +10,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.entity.MediaArticle;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class FindChoiceAdapter extends BaseQuickAdapter<MediaArticle, BaseViewHolder> {
-    private SimpleDateFormat mDateFormat;
 
     public FindChoiceAdapter(@Nullable List<MediaArticle> data) {
         super(R.layout.rv_find_choice_item, data);
-        mDateFormat = new SimpleDateFormat("MM月dd日", Locale.CHINA);
     }
 
     @Override

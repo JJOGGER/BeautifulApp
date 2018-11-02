@@ -24,7 +24,7 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
 
     @Override
     public void getDialyDatas(int page, int pageSize) {
-        mModle.getDialyDatas(page, pageSize, new OnHttpRequestListener<AppInfoData>() {
+        getModel().getDialyDatas(page, pageSize, new OnHttpRequestListener<AppInfoData>() {
             @Override
             public void onFailure(int errorCode) {
 
@@ -32,8 +32,8 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
 
             @Override
             public void onSuccess(AppInfoData appData) {
-                if (mView == null) return;
-                mView.loadDatas(appData);
+                if (unViewAttached()) return;
+                getView().loadDatas(appData);
             }
         });
     }
@@ -72,7 +72,7 @@ public class DialyPresenter extends BasePresenter<DialyContract.View, DialyContr
         }
         //获取月份
         String month = c.get(Calendar.MONTH) + 1 + Util.getApp().getString(R.string.month);
-        mView.updateDate(weekResId, month, c.get(Calendar.DAY_OF_MONTH));
+        getView().updateDate(weekResId, month, c.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override

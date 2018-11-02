@@ -21,11 +21,13 @@ public interface FindRecentContract {
         void getMoreDatasSuccess(List<RecentAppData> recentAppDatas);
 
         void getMoreDatasFail();
+
     }
 
     interface Presenter extends IPresenter<View, Model> {
         void getRecentDatas();
 
         void getMoreDatas();
+
     }
 }

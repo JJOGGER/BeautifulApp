@@ -1,15 +1,21 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyGridLayoutManager;
 import com.jogger.beautifulapp.base.recyclerview.SpaceItemDecoration;
 import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.Album;
+import com.jogger.beautifulapp.entity.AppCompilationDescData;
 import com.jogger.beautifulapp.function.adapter.FindCompilationsAdapter;
 import com.jogger.beautifulapp.function.contract.FindCompilationsContract;
 import com.jogger.beautifulapp.function.presenter.FindCompilationsPresenter;
+import com.jogger.beautifulapp.function.ui.activity.FindCompilationsDescActivity;
+import com.jogger.beautifulapp.util.L;
 import com.jogger.beautifulapp.util.SizeUtil;
 
 import java.util.List;
@@ -22,7 +28,7 @@ import butterknife.BindView;
 
 public class FindCompilationsFragment extends BaseFragment<FindCompilationsPresenter> implements
         FindCompilationsContract.View, RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter
-        .RequestLoadMoreListener {
+        .RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.rv_content)
     RefreshRecyclerView rvContent;
     private FindCompilationsAdapter mAdapter;
@@ -41,6 +47,7 @@ public class FindCompilationsFragment extends BaseFragment<FindCompilationsPrese
         rvContent.setOnRefreshListener(this);
         rvContent.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(this, rvContent);
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -78,6 +85,16 @@ public class FindCompilationsFragment extends BaseFragment<FindCompilationsPrese
     }
 
     @Override
+    public void getCompilationDescDatasSuccess(AppCompilationDescData appCompilationDescData) {
+        L.e("--------appCompilationDescData:" + appCompilationDescData);
+        startNewActivity(FindCompilationsDescActivity.class, Constant.APP_COMPILATION_DESC_DATA, appCompilationDescData);
+    }
+
+    @Override
+    public void getCompilationDescDatasFail() {
+    }
+
+    @Override
     public void onLoadMoreRequested() {
         if (mIsLoading)
             return;
@@ -90,5 +107,12 @@ public class FindCompilationsFragment extends BaseFragment<FindCompilationsPrese
                 else mAdapter.loadMoreEnd();
             }
         }, 100);
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Album album = (Album) adapter.getItem(position);
+        if (album == null) return;
+        mPresenter.getCompilationDescDatas(album.getId());
     }
 }

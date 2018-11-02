@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxHeight="88dp"
+    android:minHeight="64dp">
+
+    <CheckBox
+        android:id="@+id/cb_check"
+        android:layout_width="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:button="@drawable/zuimeia_sdk_download_checkbox_selecter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/zuimeia_sdk_download_icon_selector"
+        app:layout_constraintStart_toEndOf="@+id/cb_check"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="title"
+        android:textColor="@color/download_press_selector"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_icon"
+        app:layout_constraintTop_toTopOf="@+id/iv_icon"/>
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="state"
+        android:textColor="@color/download_press_selector"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/v_bottom"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/pb_progress"/>
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="size"
+        android:textColor="@color/download_press_selector"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_state"
+        app:layout_constraintStart_toEndOf="@+id/tv_state"
+        app:layout_constraintTop_toTopOf="@+id/tv_state"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/download_press_selector"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_size"/>
+
+    <View
+        android:id="@+id/v_bottom"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_state"/>
+
+    <ProgressBar
+        android:id="@+id/pb_progress"
+        style="@style/DownloadProgressStyle"
+        android:layout_width="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+</android.support.constraint.ConstraintLayout>

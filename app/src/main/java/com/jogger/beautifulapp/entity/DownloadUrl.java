@@ -4,9 +4,18 @@ package com.jogger.beautifulapp.entity;
 import java.io.Serializable;
 
 public class DownloadUrl implements Serializable{
+    private long id;
     private String url;
     private String name;
     private String channel;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUrl() {
         return url;

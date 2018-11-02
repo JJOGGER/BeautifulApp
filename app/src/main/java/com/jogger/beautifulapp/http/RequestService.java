@@ -1,24 +1,33 @@
 package com.jogger.beautifulapp.http;
 
 import com.jogger.beautifulapp.entity.AppCategoryData;
+import com.jogger.beautifulapp.entity.AppCategoryMoreData;
 import com.jogger.beautifulapp.entity.AppCollectData;
+import com.jogger.beautifulapp.entity.AppCompilationDescData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
 import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppMediaArticleData;
 import com.jogger.beautifulapp.entity.AppNiceFriendData;
 import com.jogger.beautifulapp.entity.AppRecentData;
+import com.jogger.beautifulapp.entity.AppSearchData;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
 import com.jogger.beautifulapp.entity.FindChoiceData;
 import com.jogger.beautifulapp.entity.RecentAppData;
+import com.jogger.beautifulapp.entity.TagData;
+import com.jogger.beautifulapp.entity.UserHomeInfo;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 
 public interface RequestService {
@@ -76,6 +85,12 @@ public interface RequestService {
     @GET("community/rank/users/")
     Observable<HttpResult<AppNiceFriendData>> getFindNiceFriendDatas();
 
+
+    //用户主页详细
+    @GET("user/{id}/statistic")
+    Observable<HttpResult<UserHomeInfo>> getUserHomeInfo(@Path("id") int id,
+                                                         @Query("platform") int platform);
+
     //美友推荐
     @GET("user/{id}/community/apps")
     Observable<HttpResult<AppRecentData>> getUserRecommendDatas(@Path("id") int id,
@@ -108,7 +123,7 @@ public interface RequestService {
     /**
      * 排名
      */
-    @GET("api/v2/apps/rank/")
+    @GET("v2/apps/rank/")
     Observable<HttpResult<AppSocialArticleData>> getRankDatas(@Query("page") int page,
                                                               @Query("page_size") int page_size,
                                                               @Query("platform") int platform);
@@ -124,4 +139,51 @@ public interface RequestService {
      */
     @GET("community/app/{id}/")
     Observable<HttpResult<RecentAppData>> getRecentDescData(@Path("id") int id);
+
+    @GET
+    Observable<ResponseBody> download(@Url String url);
+
+    /**
+     * 合辑详情
+     */
+    @GET("v2/albums/{id}/")
+    Observable<HttpResult<AppCompilationDescData>> getCompilationDescDatas(@Path("id") int id,
+                                                                           @Query("platform") int platform);
+
+
+    //http://zuimeia.com/api/search/?openUDID=863339030079519&appVersion=3.3.2&appVersionCode=30320&systemVersion=26&resolution=1080x1792&platform=2&app_client=NiceAppAndroid&phoneModel=FRD-AL00
+
+    /**
+     * 搜索页标签列表
+     */
+    @GET("community/tags/")
+    Observable<HttpResult<TagData>> getSearchTags(@Query("type") String type,
+                                                  @Query("platform") int platform);
+
+    /**
+     * 搜索结果
+     */
+    @FormUrlEncoded
+    @POST("search/")
+    @Headers("Content-Type: application/x-www-form-urlencoded; charset=UTF-8")
+    Observable<HttpResult<AppSearchData>> getSearchs(@Field("keyword") String keyword,
+                                                     @Field("platform") int platform);
+
+
+    @GET("navigation/{id}/app/all/")
+    Observable<HttpResult<AppCategoryMoreData>> getCategoryMoreDatas(@Path("id") int id,
+                                                                     @Query("page") int page,
+                                                                     @Query("page_size") int page_size,
+                                                                     @Query("platform") int platform);
+
+    @GET("v2/apps/random/")
+    Observable<HttpResult<AppRecentData>> getRandomDatas(@Query("platform") int platform);
+//最近tag：http://zuimeia.com/api/category/24/all/?type=zuimei.community&platform=2&page=1&page_size=20&platform=2
+
+    @GET("category/{id}/all/")
+    Observable<HttpResult<AppRecentData>> getTagsMoreData(@Path("id") int id,
+                                                          @Query("page") int page,
+                                                          @Query("page_size") int page_size,
+                                                          @Query("platform") int platform,
+                                                          @Query("type") String type);
 }

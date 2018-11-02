@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.util.Util;
+import com.jogger.beautifulapp.widget.LoadingWindow;
 
 import java.io.Serializable;
 
@@ -34,11 +35,29 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
     private ProgressDialog mProgressDialog;
     private Unbinder mBind;
     protected T mPresenter;
+    private LoadingWindow mLoadingWindow;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = getActivity();
+    }
+
+    @Override
+    public void showLoadingWindow() {
+        if (mActivity == null || mActivity.isFinishing() || mActivity.isDestroyed()) return;
+        if (mLoadingWindow == null)
+            mLoadingWindow = new LoadingWindow();
+        mLoadingWindow.show(mActivity);
+    }
+
+    @Override
+    public void dismissLoadingWindow() {
+        if (mActivity == null || mActivity.isFinishing() || mActivity.isDestroyed()) return;
+        if (mLoadingWindow != null) {
+            mLoadingWindow.dismiss();
+            mLoadingWindow = null;
+        }
     }
 
     @Override
@@ -191,6 +210,7 @@ public abstract class BaseFragment<T extends IPresenter> extends Fragment implem
         super.onDestroyView();
 //        MyApp.getRefWatcher().watch(this);
         cancelProgressDialog();
+        dismissLoadingWindow();
         mIsViewCreated = false;
         if (mPresenter != null)
             mPresenter.detachView();

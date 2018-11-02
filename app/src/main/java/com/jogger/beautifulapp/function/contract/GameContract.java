@@ -18,7 +18,7 @@ public interface GameContract {
         void updateDate(int weekResId, String month, int day);
     }
 
-    interface Presenter extends IPresenter<GameContract.View, GameContract.Model> {
+    interface Presenter extends IPresenter<View, Model> {
         void getGameDatas(int page, int pageSize);
 
         void updateDate(String date);

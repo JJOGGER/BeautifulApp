@@ -27,6 +27,7 @@ public class WelcomeActivity extends BaseActivity {
         }, 500);
     }
 
+
     @Override
     public boolean isFullScreen() {
         return true;

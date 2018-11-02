@@ -2,7 +2,6 @@ package com.jogger.beautifulapp.function.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
 
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
@@ -24,8 +23,8 @@ import butterknife.BindView;
 
 public class UserHomeRecommendFragment extends BaseFragment<UserHomeRecomendPresenter> implements
         UserHomeRecomendContract.View {
-    @BindView(R.id.tv_flowers)
-    TextView tvFlowers;
+//    @BindView(R.id.tv_flowers)
+//    TextView tvFlowers;
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     private UserCommandAdapter mAdapter;
@@ -38,11 +37,14 @@ public class UserHomeRecommendFragment extends BaseFragment<UserHomeRecomendPres
 
     @Override
     public void init() {
-        tvFlowers.setText(mUser.getFlowers());
+        if (getArguments() == null) return;
+        mUser = (User) getArguments().getSerializable(Constant.USER_INFO);
+        if (mUser == null) return;
+        int flowers = getArguments().getInt(Constant.FLOWERS);
         rvContent.setLayoutManager(new MyLinearLayoutManager(mActivity));
-        mAdapter = new UserCommandAdapter(null);
+        mAdapter = new UserCommandAdapter(null,flowers);
         rvContent.setAdapter(mAdapter);
-        mPresenter.getUserRecommendDatas(1,20);
+        mPresenter.getUserRecommendDatas(1, 20);
         rvContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

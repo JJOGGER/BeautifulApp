@@ -1,5 +1,6 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
@@ -11,14 +12,13 @@ import android.widget.TextView;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.constant.Constant;
-import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.entity.AppInfo;
+import com.jogger.beautifulapp.entity.AppInfoData;
 import com.jogger.beautifulapp.function.adapter.DialyViewpagerAdapter;
 import com.jogger.beautifulapp.function.contract.DialyContract;
 import com.jogger.beautifulapp.function.presenter.DialyPresenter;
 import com.jogger.beautifulapp.function.ui.activity.MainActivity;
 import com.jogger.beautifulapp.util.AnimatorUtil;
-import com.jogger.beautifulapp.util.L;
 import com.jogger.beautifulapp.util.SPUtil;
 import com.jogger.beautifulapp.widget.rhythm.IRhythmItemListener;
 import com.jogger.beautifulapp.widget.rhythm.RhythmAdapter;
@@ -84,13 +84,28 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
     protected DialyPresenter createPresenter() {
         return new DialyPresenter();
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+//        int color = Color.parseColor(mAppInfos.get(0)
+//                .getAuthor_bgcolor());
+        if (isVisible())
+            setBgColor(mPreColor);
+    }
+
+    @Override
     public void loadDatas(AppInfoData appData) {
         mAppInfos = appData.getApps();
+        if (mAppInfos == null) return;
         if (!mIsFirstLoad) {
             vpContent.onRefreshComplete();
             vpContent.getRefreshableView().setCurrentItem(0);
@@ -98,10 +113,9 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
             return;
         }
         mIsFirstLoad = false;
-        int color = Color.parseColor(mAppInfos.get(0)
+        mPreColor = Color.parseColor(mAppInfos.get(0)
                 .getAuthor_bgcolor());
-        ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
-        setBgColor(color);
+//        setBgColor(color);
         mAdapter = new RhythmAdapter(mActivity, rhythmLayout, mAppInfos);
         rhythmLayout.setAdapter(mAdapter);
         ViewPager vp = vpContent.getRefreshableView();
@@ -140,8 +154,17 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
         //执行颜色转换动画
         AnimatorUtil.showBackgroundColorAnimation(((MainActivity) mActivity).getBaseContainer(),
                 mPreColor, color, 400);
-        L.e("----------onAppPagerChange");
         setBgColor(color);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mIsViewCreated) {
+            int color = SPUtil.getInstance().getInt(Constant.DIALY_LAST_COLOR);
+            if (color != 0)
+                setBgColor(color);
+        }
     }
 
     private void setBgColor(int color) {
@@ -149,6 +172,7 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
         ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
         mPreColor = color;
         SPUtil.getInstance().put(Constant.DIALY_LAST_COLOR, color);
+        SPUtil.getInstance().put(Constant.CATEGORY_LAST_COLOR, color);
     }
 
     @Override
@@ -172,7 +196,6 @@ public class DialyFragment extends BaseFragment<DialyPresenter> implements Dialy
 
     @Override
     public void onPageSelected(int position) {
-        L.e("---onPageSelected" + position);
         onAppPagerChange(position);
         tvNiceTitle.setVisibility((position == 0 || position == 1) ? View.VISIBLE : View.GONE);
         llDate.setVisibility((position == 0 || position == 1) ? View.GONE : View.VISIBLE);

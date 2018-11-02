@@ -6,7 +6,7 @@ import com.jogger.beautifulapp.http.HttpAction;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 
-public class CategoryModel implements CategoryContract.Model {
+public class CategoryModel extends DescBaseModel implements CategoryContract.Model {
     @Override
     public void getCategoryDatas(OnHttpRequestListener<AppCategoryData> listener) {
         HttpAction.getHttpAction().getCategoryDatas(listener);

@@ -9,7 +9,6 @@
     android:background="@color/white"
     tools:context="com.jogger.beautifulapp.function.ui.activity.RecentDescActivity">
 
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_content"
         android:layout_width="match_parent"
@@ -73,41 +72,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_icon"/>
 
-            <ImageButton
-                android:id="@+id/ibtn_collection_roll"
-                android:layout_width="40dp"
+            <include
+                android:id="@+id/rl_roll_menu"
+                layout="@layout/detail_roll_menu_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:background="@null"
-                android:src="@drawable/detail_collection_roll_selector"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fbl_tag"
                 />
 
-            <ImageButton
-                android:id="@+id/ibtn_share_roll"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="128dp"
-                android:background="@null"
-                android:src="@drawable/detail_share_roll_selector"
-                app:layout_constraintBottom_toBottomOf="@+id/ibtn_collection_roll"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ibtn_collection_roll"
-                app:layout_constraintVertical_bias="0.0"/>
-
-            <ImageButton
-                android:id="@+id/ibtn_download_roll"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="224dp"
-                android:background="@null"
-                android:src="@drawable/detail_download_roll_selector"
-                app:layout_constraintBottom_toBottomOf="@+id/ibtn_share_roll"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ibtn_share_roll"
-                app:layout_constraintVertical_bias="0.0"/>
 
             <TextView
                 android:id="@+id/tv_desc"
@@ -121,47 +96,8 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ibtn_collection_roll"/>
+                app:layout_constraintTop_toBottomOf="@+id/rl_roll_menu"/>
 
-            <TextView
-                android:id="@+id/tv_collection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/collection"
-                android:textColor="@color/black_333333"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ibtn_collection_roll"
-                app:layout_constraintStart_toEndOf="@+id/ibtn_collection_roll"
-                app:layout_constraintTop_toTopOf="@+id/ibtn_collection_roll"/>
-
-            <TextView
-                android:id="@+id/tv_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/share"
-                android:textColor="@color/black_333333"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ibtn_share_roll"
-                app:layout_constraintStart_toEndOf="@+id/ibtn_share_roll"
-                app:layout_constraintTop_toTopOf="@+id/ibtn_share_roll"/>
-
-            <TextView
-                android:id="@+id/tv_download"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/download"
-                android:textColor="@color/black_333333"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/ibtn_download_roll"
-                app:layout_constraintStart_toEndOf="@+id/ibtn_download_roll"
-                app:layout_constraintTop_toTopOf="@+id/ibtn_download_roll"/>
 
             <TextView
                 android:id="@+id/tv_flowers"
@@ -236,30 +172,34 @@
             android:background="@null"
             android:src="@drawable/return_selector"/>
 
-        <ImageButton
-            android:id="@+id/ibtn_collection"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="68dp"
-            android:background="@null"
-            android:src="@drawable/detail_collection_roll_selector"
-            android:visibility="invisible"/>
+        <RelativeLayout
+            android:id="@+id/rl_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
 
-        <ImageButton
-            android:id="@+id/ibtn_share"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="128dp"
-            android:src="@drawable/detail_share_roll_selector"
-            android:visibility="invisible"/>
+            <ImageButton
+                android:id="@+id/ibtn_collection"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="68dp"
+                android:background="@null"
+                android:src="@drawable/detail_collection_roll_selector"/>
 
-        <ImageButton
-            android:id="@+id/ibtn_download"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="188dp"
-            android:src="@drawable/detail_download_roll_selector"
-            android:visibility="invisible"/>
+            <ImageButton
+                android:id="@+id/ibtn_share"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="128dp"
+                android:src="@drawable/detail_share_roll_selector"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_download"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="188dp"
+                android:src="@drawable/detail_download_roll_selector"/>
+        </RelativeLayout>
 
         <com.jogger.beautifulapp.widget.CircleImageView
             android:id="@+id/iv_user_icon"
@@ -271,5 +211,21 @@
             app:border_color="@android:color/transparent"/>
     </FrameLayout>
 
-    <include layout="@layout/include_bottom_layout"/>
+    <ImageButton
+        android:id="@+id/ibtn_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="48dp"
+        android:background="@null"
+        android:src="@drawable/detail_btn_tap_selector"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_eeeeee"/>
+
 </RelativeLayout>

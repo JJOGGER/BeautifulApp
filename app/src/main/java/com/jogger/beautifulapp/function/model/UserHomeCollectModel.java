@@ -6,7 +6,7 @@ import com.jogger.beautifulapp.http.HttpAction;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 
-public class UserHomeCollectModel implements UserHomeCollectContract.Model {
+public class UserHomeCollectModel extends DescBaseModel implements UserHomeCollectContract.Model {
     private int mUserId;
 
     @Override

@@ -8,11 +8,14 @@ import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
 import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
 import com.jogger.beautifulapp.constant.Constant;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.function.adapter.FindChoiceAdapter;
 import com.jogger.beautifulapp.function.contract.FindChoiceContract;
 import com.jogger.beautifulapp.function.presenter.FindChoicePresenter;
 import com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity;
+import com.jogger.beautifulapp.util.NetworkUtil;
+import com.jogger.beautifulapp.util.T;
 
 import java.util.List;
 
@@ -42,7 +45,7 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
         mAdapter = new FindChoiceAdapter(null);
         rvContent.setAdapter(mAdapter);
         rvContent.setOnRefreshListener(this);
-        mAdapter.setOnLoadMoreListener(this,rvContent);
+        mAdapter.setOnLoadMoreListener(this, rvContent);
         mAdapter.setOnItemClickListener(this);
     }
 
@@ -76,10 +79,19 @@ public class FindChoiceFragment extends BaseFragment<FindChoicePresenter> implem
     }
 
     @Override
+    public void getChoiceDescDataSuccess(AppInfo appInfo) {
+        startNewActivity(FindChoiceDescActivity.class, Constant.APP_INFO, appInfo);
+    }
+
+    @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         MediaArticle article = (MediaArticle) adapter.getItem(position);
         if (article == null) return;
-        startNewActivity(FindChoiceDescActivity.class, Constant.ID, article.getId());
+        if (!NetworkUtil.isNetworkAvailable()) {
+            T.show(R.string.request_failure);
+            return;
+        }
+        mPresenter.getChoiceDescData(article.getId());
     }
 
     @Override

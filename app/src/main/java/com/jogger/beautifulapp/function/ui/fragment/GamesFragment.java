@@ -87,17 +87,23 @@ public class GamesFragment extends BaseFragment<GamePresenter> implements GameCo
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mPreColor != 0 && isVisible())
+            setBgColor(mPreColor);
+    }
+
+    @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
     @Override
     public void onPageSelected(int position) {
-        L.e("---onPageSelected" + position);
         onAppPagerChange(position);
         tvNiceTitle.setVisibility((position == 0) ? View.VISIBLE : View.GONE);
-        llDate.setVisibility((position == 0 ) ? View.GONE : View.VISIBLE);
-        tvDate.setVisibility((position == 0 ) ? View.GONE : View.VISIBLE);
+        llDate.setVisibility((position == 0) ? View.GONE : View.VISIBLE);
+        tvDate.setVisibility((position == 0) ? View.GONE : View.VISIBLE);
         if (position == 0)
             tvNiceTitle.setText(String.format(getString(R.string.game_title_format), getString(R
                     .string.today)));
@@ -196,10 +202,22 @@ public class GamesFragment extends BaseFragment<GamePresenter> implements GameCo
         setBgColor(color);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && mIsViewCreated) {
+            int color = SPUtil.getInstance().getInt(Constant.GAME_LAST_COLOR);
+            L.e("----------setUserVisibleHint:" + color);
+            if (color != 0)
+                setBgColor(color);
+        }
+    }
+
     private void setBgColor(int color) {
         llContainer.setBackgroundColor(color);
         ((MainActivity) mActivity).getBaseContainer().setBackgroundColor(color);
         mPreColor = color;
-        SPUtil.getInstance().put(Constant.DIALY_LAST_COLOR, color);
+        SPUtil.getInstance().put(Constant.GAME_LAST_COLOR, color);
+        SPUtil.getInstance().put(Constant.CATEGORY_LAST_COLOR, color);
     }
 }

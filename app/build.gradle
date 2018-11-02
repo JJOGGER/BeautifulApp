@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
@@ -40,7 +41,7 @@ dependencies {
     implementation rootProject.ext.dependencies.baseAdapter
     implementation rootProject.ext.dependencies.glide
     implementation rootProject.ext.dependencies.flexbox
+    implementation rootProject.ext.dependencies.greendao
     implementation project(':slidemenulibrary')
     implementation project(':refreshlayout')
 }
-

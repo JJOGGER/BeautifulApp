@@ -1,11 +1,14 @@
 package com.jogger.beautifulapp.function.presenter;
 
+import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BasePresenter;
 import com.jogger.beautifulapp.entity.AppSocialArticleData;
+import com.jogger.beautifulapp.entity.RecentAppData;
 import com.jogger.beautifulapp.function.contract.RankContract;
 import com.jogger.beautifulapp.function.model.RankModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 import com.jogger.beautifulapp.util.L;
+import com.jogger.beautifulapp.util.T;
 
 
 public class RankPresenter extends BasePresenter<RankContract.View, RankContract.Model>
@@ -18,7 +21,7 @@ public class RankPresenter extends BasePresenter<RankContract.View, RankContract
 
     @Override
     public void getRankDatas(int page, int page_size) {
-        mModle.getRankDatas(page, page_size, new OnHttpRequestListener<AppSocialArticleData>() {
+        getModel().getRankDatas(page, page_size, new OnHttpRequestListener<AppSocialArticleData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("--------errorcode" + errorCode);
@@ -26,8 +29,31 @@ public class RankPresenter extends BasePresenter<RankContract.View, RankContract
 
             @Override
             public void onSuccess(AppSocialArticleData appSocialArticleData) {
-                if (mView == null) return;
-                mView.getRankDatasSuccess(appSocialArticleData);
+                if (unViewAttached()) return;
+                getView().getRankDatasSuccess(appSocialArticleData);
+            }
+        });
+    }
+
+    @Override
+    public void getRecentDescData(int id) {
+        getView().showLoadingWindow();
+        getModel().getRecentDescData(id, new OnHttpRequestListener<RecentAppData>() {
+            @Override
+            public void onFailure(int errorCode) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+            }
+
+            @Override
+            public void onSuccess(RecentAppData recentAppData) {
+                if (unViewAttached()) return;
+                getView().dismissLoadingWindow();
+                if (recentAppData == null) {
+                    T.show(R.string.request_failure);
+                    return;
+                }
+                getView().getRecentDescDataSuccess(recentAppData);
             }
         });
     }

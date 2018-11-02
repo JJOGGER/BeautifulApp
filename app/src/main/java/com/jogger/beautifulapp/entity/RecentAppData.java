@@ -44,6 +44,7 @@ public class RecentAppData implements Serializable{
     private String author_career;
     private String cover_image;
     private int author_id;
+    private String type;
     private List<User> down_users;
 
     public boolean isIs_beta_end() {
@@ -124,6 +125,14 @@ public class RecentAppData implements Serializable{
 
     public void setPlatform_id(int platform_id) {
         this.platform_id = platform_id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {

@@ -1,36 +1,40 @@
 package com.jogger.beautifulapp.base;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+
 public abstract class BasePresenter<V extends BaseView, M extends BaseModel> implements
         IPresenter<V, M> {
-    protected V mView;
-    protected M mModle;
+    private M mModel;
+    private Reference<V> mVMReference;
 
     public BasePresenter() {
-        mModle = attachModel();
+        mModel = attachModel();
     }
 
     @Override
     public void attachView(V view) {
-        mView = view;
+        mVMReference = new WeakReference<>(view);
+    }
+
+    protected V getView() {
+        return mVMReference.get();
+    }
+
+    protected M getModel() {
+        return mModel;
     }
 
     @Override
     public void detachView() {
-        mView = null;
-    }
-
-    protected boolean isViewAttached() {
-        return mView != null;
-    }
-
-    public void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpViewNotAttachedException();
-    }
-
-    public static class MvpViewNotAttachedException extends RuntimeException {
-        MvpViewNotAttachedException() {
-            super("Please call Presenter.attachView(MvpView) before" +
-                    " requesting data to the Presenter");
+        if (mVMReference != null) {
+            mVMReference.clear();
+            mVMReference = null;
         }
+        mModel = null;
+    }
+
+    public boolean unViewAttached() {//判断是否与View建立了关联
+        return mVMReference == null || mVMReference.get() == null;
     }
 }

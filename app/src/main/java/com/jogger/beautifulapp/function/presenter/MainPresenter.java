@@ -15,6 +15,7 @@ import com.jogger.beautifulapp.function.model.MainModel;
 
 public class MainPresenter extends BasePresenter<MainContract.View, MainContract.Model>
         implements MainContract.Presenter {
+
     /**
      * 初始化侧滑菜单
      */
@@ -36,8 +37,38 @@ public class MainPresenter extends BasePresenter<MainContract.View, MainContract
             }
 
         };
-        mView.initSlidingMenuAnim(canvasTransformer);
+        getView().initSlidingMenuAnim(canvasTransformer);
     }
+
+    //获取随机数据，由于最美返回的list json里是不同对象，暂时没想到方法解析
+    @Override
+    public void getRandomDatas() {
+//        if (mDatas == null) {
+//            getModel().getRandomDatas(new OnHttpRequestListener<AppRecentData>() {
+//                @Override
+//                public void onFailure(int errorCode) {
+//
+//                }
+//
+//                @Override
+//                public void onSuccess(AppRecentData appRecentData) {
+//                    if (unViewAttached() || appRecentData == null || appRecentData.getApps() == null)
+//                        return;
+//                    mDatas=appRecentData.getApps();
+////                    getView().getRandomDatasSuccess(getRandomDatas());
+//                }
+//            });
+//        } else {
+////            getView().getRandomDatasSuccess(getRandomDatas());
+//        }
+    }
+
+//    private RecentAppData getRandomData() {
+//        if (mDatas == null || mDatas.isEmpty()) return null;
+//        Random random = new Random(mDatas.size());
+//        int i = random.nextInt();
+//        return mDatas.get(i);
+//    }
 
     @Override
     public MainContract.Model attachModel() {

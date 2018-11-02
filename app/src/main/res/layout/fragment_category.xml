@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
@@ -34,12 +35,10 @@
             android:textColor="@color/white"
             android:textSize="18sp"/>
     </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
+    <com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView
         android:id="@+id/rv_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

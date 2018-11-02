@@ -20,6 +20,10 @@ abstract class BaseHttpAction {
 
 
     BaseHttpAction() {
+        initRetrofit();
+    }
+
+    private void initRetrofit() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.cache(new Cache(Util.getApp().getCacheDir(), 10 * 1024 * 1024)).connectTimeout
                 (10, TimeUnit.SECONDS)

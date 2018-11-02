@@ -2,19 +2,27 @@ package com.jogger.beautifulapp.function.adapter;
 
 
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.entity.RecentAppData;
+import com.jogger.beautifulapp.util.Util;
 
 import java.util.List;
 
 public class UserCommandAdapter extends BaseQuickAdapter<RecentAppData, BaseViewHolder> {
-    public UserCommandAdapter(@Nullable List<RecentAppData> data) {
+    public UserCommandAdapter(@Nullable List<RecentAppData> data, int flowers) {
         super(R.layout.rv_find_recent_item, data);
+        View header = LayoutInflater.from(Util.getApp()).inflate(R.layout.rv_user_command_header, null);
+        TextView tvFlowers = header.findViewById(R.id.tv_flowers);
+        tvFlowers.setText(String.valueOf(flowers));
+        addHeaderView(header);
     }
 
     @Override

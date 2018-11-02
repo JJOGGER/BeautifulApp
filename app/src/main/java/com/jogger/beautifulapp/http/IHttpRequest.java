@@ -28,6 +28,8 @@ interface IHttpRequest<T> {
 
     void getFindNiceFriendDatas(OnHttpRequestListener<T> listener);
 
+    void getUserHomeInfo(int id, int platform, OnHttpRequestListener<T> listener);
+
     void getUserRecommendDatas(int userId, int page, int page_size, int platform,
                                OnHttpRequestListener<T>
                                        listener);
@@ -47,4 +49,18 @@ interface IHttpRequest<T> {
     void getChoiceDescData(int id, OnHttpRequestListener<T> listener);
 
     void getRecentDescData(int id, OnHttpRequestListener<T> listener);
+
+    void getCompilationDescDatas(int id, int platform, OnHttpRequestListener<T> listener);
+
+    void getSearchTags(String type, int platform, OnHttpRequestListener<T> listener);
+
+    void getSearchs(String keyword, int platform, OnHttpRequestListener<T> listener);
+
+    void getCategoryMoreDatas(int id, int page, int page_size, int platform,
+                              OnHttpRequestListener<T> listener);
+
+    void getRandomDatas(int platform,
+                        OnHttpRequestListener<T> listener);
+
+    void getTagsMoreData(int id, int page, int pageSize, int platform, String type,OnHttpRequestListener<T> listener);
 }

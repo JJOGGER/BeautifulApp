@@ -12,7 +12,7 @@ public class UserHomeRecomendPresenter extends BasePresenter<UserHomeRecomendCon
         UserHomeRecomendContract
                 .Model> implements UserHomeRecomendContract.Presenter {
     public UserHomeRecomendPresenter(int userId) {
-        mModle.setUserId(userId);
+        getModel().setUserId(userId);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class UserHomeRecomendPresenter extends BasePresenter<UserHomeRecomendCon
 
     @Override
     public void getUserRecommendDatas(int page, int page_size) {
-        mModle.getUserRecommendDatas(page, page_size, new OnHttpRequestListener<AppRecentData>() {
+        getModel().getUserRecommendDatas(page, page_size, new OnHttpRequestListener<AppRecentData>() {
             @Override
             public void onFailure(int errorCode) {
                 L.e("-----errorCode:"+errorCode);
@@ -30,8 +30,8 @@ public class UserHomeRecomendPresenter extends BasePresenter<UserHomeRecomendCon
 
             @Override
             public void onSuccess(AppRecentData appRecentData) {
-                if (mView == null) return;
-                mView.getUserRecommendDatasSuccess(appRecentData);
+                if (unViewAttached()) return;
+                getView().getUserRecommendDatasSuccess(appRecentData);
             }
         });
     }

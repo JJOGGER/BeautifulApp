@@ -551,7 +551,6 @@ public class AppInfo implements Serializable {
                 ", sub_title='" + sub_title + '\'' +
                 ", download_url='" + download_url + '\'' +
                 ", icon_image='" + icon_image + '\'' +
-                ", content='" + content + '\'' +
                 ", version='" + version + '\'' +
                 ", recommend_level='" + recommend_level + '\'' +
                 ", cover_comment_author_gender='" + cover_comment_author_gender + '\'' +

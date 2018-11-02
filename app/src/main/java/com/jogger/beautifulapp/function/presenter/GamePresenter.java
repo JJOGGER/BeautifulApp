@@ -27,7 +27,7 @@ public class GamePresenter extends BasePresenter<GameContract.View, GameContract
 
     @Override
     public void getGameDatas(int page, int pageSize) {
-        mModle.getGameDatas(page, pageSize, new OnHttpRequestListener<AppInfoData>() {
+        getModel().getGameDatas(page, pageSize, new OnHttpRequestListener<AppInfoData>() {
             @Override
             public void onFailure(int errorCode) {
 
@@ -35,8 +35,8 @@ public class GamePresenter extends BasePresenter<GameContract.View, GameContract
 
             @Override
             public void onSuccess(AppInfoData appData) {
-                if (mView==null)return;
-                mView.getGameDatasSuccess(appData);
+                if (unViewAttached())return;
+                getView().getGameDatasSuccess(appData);
             }
         });
     }
@@ -75,6 +75,6 @@ public class GamePresenter extends BasePresenter<GameContract.View, GameContract
         }
         //获取月份
         String month = c.get(Calendar.MONTH) + 1 + Util.getApp().getString(R.string.month);
-        mView.updateDate(weekResId, month, c.get(Calendar.DAY_OF_MONTH));
+        getView().updateDate(weekResId, month, c.get(Calendar.DAY_OF_MONTH));
     }
 }

@@ -201,7 +201,7 @@ public class RefreshRecyclerView extends RecyclerView {
      * 添加头部的刷新View
      */
     private void addRefreshView() {
-        RecyclerView.Adapter adapter = getAdapter();
+        Adapter adapter = getAdapter();
         if (adapter != null && mRefreshCreator != null) {
             // 添加头部的刷新View
             View refreshView = mRefreshCreator.getRefreshView(getContext(), this);

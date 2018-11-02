@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#f3f3f3</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#02a0d3</color>
     <color name="white">#ffffff</color>
@@ -16,4 +16,19 @@
     <color name="black_454545">#454545</color>
     <color name="gray_dedede">#dedede</color>
     <color name="gray_ededed">#ededed</color>
+    <color name="refrsh_bg_color">#35010101</color>
+    <color name="purple_a5a8c9">#a5a8c9</color>
+    <color name="purple_7a7ead">#7a7ead</color>
+    <color name="gray_9b9b9b">#9b9b9b</color>
+    <color name="purple_666883">#666883</color>
+    <color name="purple_9a9dbe">#9a9dbe</color>
+    <color name="blue_64c6ff">#64c6ff</color>
+    <color name="purple_b9bbd3">#b9bbd3</color>
+    <color name="red_fe736c">#fe736c</color>
+    <color name="blue_19d6ed">#19d6ed</color>
+    <color name="gray_a4c0c3">#a4c0c3</color>
+    <color name="blue_6bddeb">#6bddeb</color>
+    <color name="blue_0aabd9">#0aabd9</color>
+    <color name="blue_c1eaf5">#c1eaf5</color>
+    <color name="blue_02a0d3">#02a0d3</color>
 </resources>

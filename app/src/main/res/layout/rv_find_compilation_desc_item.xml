@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_title"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="title"
+        android:textColor="@color/black_333333"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_title"
+        app:layout_constraintTop_toTopOf="@+id/iv_title"/>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:lineSpacingExtra="3dp"
+        android:paddingEnd="16dp"
+        android:text="descdescdescdescdescdescdescdescdescdescdescdesc"
+        android:textColor="@color/gray_888888"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <TextView
+        android:id="@+id/tv_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/tv_download_shape"
+        android:gravity="center"
+        android:text="@string/download"
+        android:textColor="@color/blue_64c6ff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc"/>
+
+    <TextView
+        android:id="@+id/tv_view_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="查看详情"
+        android:textColor="@color/blue_64c6ff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_download"
+        app:layout_constraintEnd_toStartOf="@+id/tv_download"
+        app:layout_constraintTop_toTopOf="@+id/tv_download"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_view_desc"
+        app:layout_constraintStart_toStartOf="@+id/tv_desc"
+        app:layout_constraintTop_toTopOf="@+id/tv_view_desc">
+
+        <TextView
+            android:id="@+id/tv_flowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="1dp"
+            android:drawableStart="@mipmap/icon_home_flower"
+            android:text="12"
+            android:textColor="@color/red_fe736c"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_share_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_flowers"
+            android:layout_marginTop="2dp"
+            android:text="1位美友"
+            android:textColor="@color/gray_888888"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

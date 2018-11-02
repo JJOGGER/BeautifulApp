@@ -1,17 +1,16 @@
 package com.jogger.beautifulapp.function.presenter;
 
-import com.jogger.beautifulapp.base.BasePresenter;
 import com.jogger.beautifulapp.entity.AppCollectData;
 import com.jogger.beautifulapp.function.contract.UserHomeCollectContract;
 import com.jogger.beautifulapp.function.model.UserHomeCollectModel;
 import com.jogger.beautifulapp.http.listener.OnHttpRequestListener;
 
 
-public class UserHomeCollectPresenter extends BasePresenter<UserHomeCollectContract.View,
+public class UserHomeCollectPresenter extends DescBasePresenter<UserHomeCollectContract.View,
         UserHomeCollectContract
                 .Model> implements UserHomeCollectContract.Presenter {
     public UserHomeCollectPresenter(int userId) {
-        mModle.setUserId(userId);
+        getModel().setUserId(userId);
     }
 
     @Override
@@ -21,7 +20,7 @@ public class UserHomeCollectPresenter extends BasePresenter<UserHomeCollectContr
 
     @Override
     public void getUserCollectDatas(int page, int page_size) {
-        mModle.getUserCollectDatas(page, page_size, new OnHttpRequestListener<AppCollectData>() {
+        getModel().getUserCollectDatas(page, page_size, new OnHttpRequestListener<AppCollectData>() {
             @Override
             public void onFailure(int errorCode) {
 
@@ -29,9 +28,10 @@ public class UserHomeCollectPresenter extends BasePresenter<UserHomeCollectContr
 
             @Override
             public void onSuccess(AppCollectData appCollectData) {
-                if (mView == null) return;
-                mView.getUserCollectDatasSuccess(appCollectData);
+                if (unViewAttached()) return;
+                getView().getUserCollectDatasSuccess(appCollectData);
             }
         });
     }
+
 }

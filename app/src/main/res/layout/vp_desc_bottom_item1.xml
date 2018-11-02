@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="52dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/collection_desc_bottom_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_flower"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="22dp"
+            android:src="@drawable/detail_icon_flower_selector"/>
+
+        <TextView
+            android:id="@+id/tv_flowers"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_toEndOf="@id/iv_flower"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toEndOf="@id/tv_flowers"
+            android:background="@color/white"/>
+
+        <ImageView
+            android:id="@+id/iv_leaf"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="22dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@+id/v_line"
+            android:background="@null"
+            android:src="@drawable/detail_icon_leaf_selector"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_download"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/download_desc_bottom_selector"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ibtn_drag"
+        app:layout_constraintStart_toEndOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawablePadding="4dp"
+            android:drawableStart="@mipmap/down_arrow"
+            android:gravity="center"
+            android:text="下载"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </FrameLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"/>
+
+    <ImageButton
+        android:id="@+id/ibtn_drag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:src="@mipmap/detail_icon_drag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

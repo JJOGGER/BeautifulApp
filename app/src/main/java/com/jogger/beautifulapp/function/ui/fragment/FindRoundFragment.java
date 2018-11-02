@@ -1,14 +1,20 @@
 package com.jogger.beautifulapp.function.ui.fragment;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jogger.beautifulapp.R;
 import com.jogger.beautifulapp.base.BaseFragment;
 import com.jogger.beautifulapp.base.recyclerview.MyLinearLayoutManager;
 import com.jogger.beautifulapp.base.recyclerview.refresh.RefreshRecyclerView;
+import com.jogger.beautifulapp.constant.Constant;
+import com.jogger.beautifulapp.entity.AppInfo;
 import com.jogger.beautifulapp.entity.MediaArticle;
 import com.jogger.beautifulapp.function.adapter.FindRoundAdapter;
 import com.jogger.beautifulapp.function.contract.FindRoundContract;
 import com.jogger.beautifulapp.function.presenter.FindRoundPresenter;
+import com.jogger.beautifulapp.function.ui.activity.FindChoiceDescActivity;
+import com.jogger.beautifulapp.util.L;
 
 import java.util.List;
 
@@ -20,7 +26,7 @@ import butterknife.BindView;
 
 public class FindRoundFragment extends BaseFragment<FindRoundPresenter> implements
         FindRoundContract.View, RefreshRecyclerView.OnRefreshListener, BaseQuickAdapter
-        .RequestLoadMoreListener {
+        .RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.rv_content)
     RefreshRecyclerView rvContent;
     private FindRoundAdapter mAdapter;
@@ -43,6 +49,7 @@ public class FindRoundFragment extends BaseFragment<FindRoundPresenter> implemen
         rvContent.setAdapter(mAdapter);
         rvContent.setOnRefreshListener(this);
         mAdapter.setOnLoadMoreListener(this, rvContent);
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -94,5 +101,23 @@ public class FindRoundFragment extends BaseFragment<FindRoundPresenter> implemen
     public void getMoreDatasFail() {
         mAdapter.loadMoreFail();
         mIsLoading = false;
+    }
+
+    @Override
+    public void getDescDatasSuccess(AppInfo info) {
+        startNewActivity(FindChoiceDescActivity.class, Constant.APP_INFO, info);
+    }
+
+    @Override
+    public void getDescDatasFail() {
+    }
+
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        L.e("------------::" + adapter.getItem(position));
+        MediaArticle mediaArticle = (MediaArticle) adapter.getItem(position);
+        if (mediaArticle == null) return;
+        mPresenter.getDescDatas(mediaArticle.getId());
     }
 }

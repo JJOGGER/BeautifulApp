@@ -1,5 +1,6 @@
 package com.jogger.beautifulapp.http;
 
+import com.jogger.beautifulapp.constant.Constant;
 import com.jogger.beautifulapp.entity.AppCategoryData;
 import com.jogger.beautifulapp.entity.AppCollectData;
 import com.jogger.beautifulapp.entity.AppCompilationsData;
@@ -79,6 +80,13 @@ public class HttpAction extends BaseHttpAction {
     }
 
     /**
+     * 用户主页信息
+     */
+    public void getUserHomeInfo(int id, OnHttpRequestListener listener) {
+        mHttpRequest.getUserHomeInfo(id, 2, listener);
+    }
+
+    /**
      * 美友推荐
      */
     public void getUserRecommendDatas(int userId, int page, int page_size,
@@ -122,8 +130,56 @@ public class HttpAction extends BaseHttpAction {
     public void getChoiceDescData(int id, OnHttpRequestListener<AppInfo> listener) {
         mHttpRequest.getChoiceDescData(id, listener);
     }
-    public void getRecentDescData(int id, OnHttpRequestListener<RecentAppData> listener){
+
+    /**
+     * 最近详情
+     */
+    public void getRecentDescData(int id, OnHttpRequestListener<RecentAppData> listener) {
         mHttpRequest.getRecentDescData(id, listener);
+    }
+
+    /**
+     * 合辑详情
+     */
+    public void getCompilationDescDatas(int id, OnHttpRequestListener listener) {
+        mHttpRequest.getCompilationDescDatas(id, 2, listener);
+    }
+
+    /**
+     * 搜索页面标签列表
+     */
+    public void getSearchTags(OnHttpRequestListener listener) {
+        mHttpRequest.getSearchTags("zuimei.tag.home", 2, listener);
+    }
+
+    /**
+     * 搜索列表
+     *
+     * @param keyword 关键词
+     */
+    public void getSearchs(String keyword, OnHttpRequestListener listener) {
+        mHttpRequest.getSearchs(keyword, 2, listener);
+    }
+
+    /**
+     * 精选页更多
+     */
+    public void getCategoryMoreDatas(int id, int page, int page_size, OnHttpRequestListener listener) {
+        mHttpRequest.getCategoryMoreDatas(id, page, page_size, 2, listener);
+    }
+
+    /**
+     * 主页随机数据
+     */
+    public void getRandomDatas(OnHttpRequestListener listener) {
+        mHttpRequest.getRandomDatas(2, listener);
+    }
+
+    /**
+     * tag标签点击详情
+     */
+    public void getTagsMoreData(int id, int page, int pageSize, OnHttpRequestListener<AppRecentData> listener) {
+        mHttpRequest.getTagsMoreData(id, page, pageSize, 2, Constant.TYPE_COMMUNITY,listener);
     }
 
     @Override
@@ -135,4 +191,6 @@ public class HttpAction extends BaseHttpAction {
     String getBaseUrl() {
         return RequestService.BASE_URL;
     }
+
+
 }

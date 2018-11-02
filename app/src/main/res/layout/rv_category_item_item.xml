@@ -4,46 +4,107 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="58dp">
+    android:layout_height="wrap_content"
+    android:minHeight="58dp">
 
-    <ImageButton
-        android:id="@+id/ibtn_download"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:background="@null"
-        android:src="@drawable/download_selector"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_container"
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <ImageButton
+            android:id="@+id/ibtn_control"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/download_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="title"
+            android:textColor="@color/black_333333"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon"/>
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="subtitle"
+            android:textColor="@color/gray_777777"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/cl_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="title"
-        android:textColor="@color/black_333333"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_icon"
-        app:layout_constraintTop_toTopOf="@+id/iv_icon"/>
-
-    <TextView
-        android:id="@+id/tv_sub_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="subtitle"
-        android:textColor="@color/gray_777777"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
-        app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
-
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/cl_container">
+
+        <ImageView
+            android:id="@+id/iv_googleplay"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/googleplay_selector"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_wandoujia"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/wandoujia_selector"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_googleplay"
+            app:layout_constraintStart_toEndOf="@+id/iv_googleplay"
+            app:layout_constraintTop_toTopOf="@+id/iv_googleplay"/>
+
+        <ImageView
+            android:id="@+id/iv_direct"
+            android:layout_width="0dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:src="@drawable/direct_selector"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_wandoujia"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_wandoujia"
+            app:layout_constraintTop_toTopOf="@+id/iv_wandoujia"/>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
