@@ -29,7 +29,7 @@ public class DownloadControl {
 
 
     private static void directDownload(DownloadUrl downloadUrl, HttpDownloadOnNextListener listener) {
-        if (downloadUrl.getUrl().endsWith(".html")) {
+        if (downloadUrl.getUrl().endsWith(".html") || !downloadUrl.getUrl().contains(".apk")) {
             //这是一个跳转下载连接，不能直接下载
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
